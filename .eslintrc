@@ -1,0 +1,13 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "@techassi"
+  ],
+  "rules": {
+    "import/named": "off"
+  }
+}

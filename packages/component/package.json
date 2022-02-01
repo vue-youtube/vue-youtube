@@ -1,0 +1,39 @@
+{
+    "name": "@vue-youtube/component",
+    "version": "1.0.6",
+    "description": "Component for VueYoutube",
+    "author": "Techassi <git@techassi.dev>",
+    "keywords": [
+        "vue",
+        "youtube",
+        "iframe",
+        "embed",
+        "api",
+        "youtube iframe api",
+        "vue-youtube-iframe"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vue-youtube/vue-youtube.git",
+        "directory": "packages/component"
+    },
+    "exports": {
+        ".": {
+            "import": "./index.mjs",
+            "require": "./index.cjs",
+            "types": "./index.d.ts"
+        }
+    },
+    "main": "./index.cjs",
+    "types": "./index.d.ts",
+    "module": "./index.mjs",
+    "sideEffects": false,
+    "bugs": {
+        "url": "https://github.com/vue-youtube/vue-youtube/issues"
+    },
+    "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
+    "dependencies": {
+        "vue-demi": "*"
+    }
+}
