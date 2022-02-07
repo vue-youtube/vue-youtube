@@ -1,18 +1,17 @@
-/* eslint-disable unicorn/prevent-abbreviations */
-import { ref, unref } from 'vue-demi';
+import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
 
-import { hostCookie, hostNoCookie, nullCallback } from './shared';
+import { hostCookie, hostNoCookie } from './shared';
 import Manager from './manager';
 
 import type { MaybeRef, MaybeElementRef } from './shared';
 import type {
-  PlaybackQualityChangeEvent,
-  PlaybackRateChangeEvent,
-  PlayerStateChangeEvent,
-  APIChangeEvent,
-  PlayerEvent,
+  PlaybackQualityChangeCallback,
+  PlaybackRateChangeCallback,
+  PlayerStateChangeCallback,
+  APIChangeCallback,
+  ErrorCallback,
+  ReadyCallback,
   PlayerVars,
-  ErrorEvent,
   Player,
 } from './types';
 
@@ -23,14 +22,7 @@ export interface Options {
   cookie?: boolean;
 }
 
-export type PlaybackQualityChangeCallback = (event: PlaybackQualityChangeEvent) => void;
-export type PlaybackRateChangeCallback = (event: PlaybackRateChangeEvent) => void;
-export type PlayerStateChangeCallback = (event: PlayerStateChangeEvent) => void;
-export type APIChangeCallback = (event: APIChangeEvent) => void;
-export type ErrorCallback = (event: ErrorEvent) => void;
-export type ReadyCallback = (event: PlayerEvent) => void;
-
-export function usePlayer(videoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) {
+export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) {
   // Options
   const {
     playerVars = {},
@@ -42,62 +34,41 @@ export function usePlayer(videoId: MaybeRef<string>, element: MaybeElementRef, o
   const host = cookie ? hostCookie : hostNoCookie;
   const target = unref(element);
 
-  if (target === null)
-    return {};
-
   // Callbacks
-  let playbackQualityChangeCallback: PlaybackQualityChangeCallback = nullCallback;
-  let playbackRateChangeCallback: PlaybackRateChangeCallback = nullCallback;
-  let playerStateChangeCallback: PlayerStateChangeCallback = nullCallback;
-  let apiChangeCallback: APIChangeCallback = nullCallback;
-  let errorCallback: ErrorCallback = nullCallback;
-  let readyCallback: ReadyCallback = nullCallback;
+  let playbackQualityChangeCallback: PlaybackQualityChangeCallback;
+  let playbackRateChangeCallback: PlaybackRateChangeCallback;
+  let playerStateChangeCallback: PlayerStateChangeCallback;
+  let apiChangeCallback: APIChangeCallback;
+  let errorCallback: ErrorCallback;
+  let readyCallback: ReadyCallback;
 
   // Refs
+  const videoId = ref(newVideoId);
   const player = ref<Player>();
 
-  // Initialization
-  Manager.get().register((factory) => {
-    player.value = factory.Player(target, {
-      width,
-      height,
-      playerVars,
-      videoId,
-      host,
-      events: {
-        onPlaybackQualityChange: playbackQualityChangeCallback,
-        onPlaybackRateChange: playbackRateChangeCallback,
-        onStateChange: playerStateChangeCallback,
-        onApiChange: apiChangeCallback,
-        onError: errorCallback,
-        onReady: readyCallback,
-      },
-    }) as Player;
-  });
-
   // Event callback functions
-  const onPlaybackQualityChange = (fn: PlaybackQualityChangeCallback) => {
-    playbackQualityChangeCallback = fn;
+  const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
+    playbackQualityChangeCallback = cb;
   };
 
-  const onPlaybackRateChange = (fn: PlaybackRateChangeCallback) => {
-    playbackRateChangeCallback = fn;
+  const onPlaybackRateChange = (cb: PlaybackRateChangeCallback) => {
+    playbackRateChangeCallback = cb;
   };
 
-  const onStateChange = (fn: PlayerStateChangeCallback) => {
-    playerStateChangeCallback = fn;
+  const onStateChange = (cb: PlayerStateChangeCallback) => {
+    playerStateChangeCallback = cb;
   };
 
-  const onApiChange = (fn: APIChangeCallback) => {
-    apiChangeCallback = fn;
+  const onApiChange = (cb: APIChangeCallback) => {
+    apiChangeCallback = cb;
   };
 
-  const onError = (fn: ErrorCallback) => {
-    errorCallback = fn;
+  const onError = (cb: ErrorCallback) => {
+    errorCallback = cb;
   };
 
-  const onReady = (fn: ReadyCallback) => {
-    readyCallback = fn;
+  const onReady = (cb: ReadyCallback) => {
+    readyCallback = cb;
   };
 
   // Functions
@@ -105,6 +76,40 @@ export function usePlayer(videoId: MaybeRef<string>, element: MaybeElementRef, o
     if (player.value)
       player.value.destroy();
   };
+
+  // Watchers
+  const stop = watch(videoId, (newVideoId) => {
+    player.value?.loadVideoById(newVideoId);
+  });
+
+  onMounted(() => {
+    if (!target)
+      return;
+
+    Manager.get().register(target, ({ factory, id }) => {
+      target.id = id;
+      player.value = factory.Player(id, {
+        videoId: unref(videoId),
+        playerVars,
+        height,
+        width,
+        host,
+        events: {
+          onPlaybackQualityChange: playbackQualityChangeCallback,
+          onPlaybackRateChange: playbackRateChangeCallback,
+          onStateChange: playerStateChangeCallback,
+          onApiChange: apiChangeCallback,
+          onError: errorCallback,
+          onReady: readyCallback,
+        },
+      }) as Player;
+    });
+  });
+
+  onUnmounted(() => {
+    destroy();
+    stop();
+  });
 
   return {
     onPlaybackQualityChange,

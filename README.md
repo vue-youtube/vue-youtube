@@ -1,7 +1,6 @@
-# @vue-youtube/core
+# VueYoutube
 
-This plugin makes it easy to integrate the YouTube Iframe API into your Vue app. This plugin is Vue v2 and v3
-compatible.
+This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2/3 app.
 
 ## 🧪 Upcoming version 1.0.7
 
@@ -9,10 +8,10 @@ compatible.
 
 - [x] Add support for new events, see [here](https://developers.google.com/youtube/iframe_api_reference#Events)
 - [x] Switch to Vite toolchain
-- [ ] [WIP] Vue 2 support via `vue-demi` [#4](https://github.com/Techassi/vue-youtube-iframe/issues/4)
+- [x] Vue 2 support via `vue-demi` [#4](https://github.com/Techassi/vue-youtube-iframe/issues/4)
 - [ ] [WIP] Maybe remove `types/youtube` dependency by defining own types
 - [ ] [WIP] Add composable functions
-- [ ] Video ID reactivity, see [#3](https://github.com/Techassi/vue-youtube-iframe/issues/3)
+- [ ] [WIP] Video ID reactivity, see [#3](https://github.com/Techassi/vue-youtube-iframe/issues/3)
 - [ ] Write migration and new usage guide
 
 ## Usage
@@ -37,6 +36,9 @@ pnpm install @vue-youtube/core
 
 ```vue
 <script setup lang="ts">
+  import { usePlayer } from '@vue-youtube/core';
+  import { ref } from 'vue'
+
   const player = ref();
 
   const { onReady } = usePlayer('dQw4w9WgXcQ', player, {
@@ -56,17 +58,6 @@ pnpm install @vue-youtube/core
 
 ### Component usage
 
-`main.ts`
-
-```ts
-import { createApp } from 'vue';
-import App from './App.vue';
-
-import { createManager } from '@vue-youtube/core';
-
-createApp(App).use(createManager()).mount('#app');
-```
-
 `component.vue`
 
 ```vue
@@ -75,36 +66,6 @@ createApp(App).use(createManager()).mount('#app');
 </script>
 
 <template>
-  <youtube-iframe video-id="dQw4w9WgXcQ" />
+  <youtube-iframe video-id="dQw4w9WgXcQ" id="player" />
 </template>
-```
-
-### Available props
-
--   `:videoId / :video-id`: Specify the YT video id (e.g. `dQw4w9WgXcQ`)
--   `:playerWidth / :player-width`: Specify the player's width in pixels
--   `:playerHeight / :player-height`: Specify the player's height in pixels
--   `:noCookie / :no-cookie`: If set to `true` the host will be set to `https://www.youtube-nocookie.com`
--   `:playerParameters / :player-parameters`: Set player parameters, see [here](#available-player-parameters)
-
-### Available player parameters
-
-For the available player parameters see [here](https://developers.google.com/youtube/player_parameters#Parameters)
-
-### Available Events
-
-```
-@ready, @error, @state-change
-```
-
-For detailed event information check [here](https://developers.google.com/youtube/iframe_api_reference#Events)
-
-## Contributing / Building
-
-Contributions and pull request are welcome!
-
-```shell
-cd vue-youtube-iframe
-yarn install / npm install
-yarn run build / npm run build
 ```

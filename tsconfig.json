@@ -13,9 +13,6 @@
             "esnext",
             "dom"
         ],
-        "types": [
-            "youtube"
-        ],
     },
     "include": [
         "packages/vite.config.ts",

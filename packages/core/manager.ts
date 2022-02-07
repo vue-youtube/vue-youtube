@@ -1,15 +1,32 @@
-export type RegisterFunction = (factory: any, uid: string) => void;
+import type { PlayerFactory } from './types';
+
+export type RegisterFunction = (data: RegisterFunctionReturn) => void;
+export type RegisterFunctionReturn = {
+  factory: PlayerFactory;
+  id: string;
+};
 
 export default class Manager {
   private static _instance: Manager;
 
-  private _players!: Array<RegisterFunction>;
-  private _factory!: any;
+  private _factory!: PlayerFactory;
   private _uid!: number;
 
   private constructor() {
-    this._players = new Array<RegisterFunction>();
     this._uid = 0;
+    this._insertScript();
+  }
+
+  private _insertScript() {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/player_api';
+
+    const firstTag = document.querySelectorAll('script')[0];
+    firstTag.parentNode?.insertBefore(tag, firstTag);
+
+    (window as any).onYouTubeIframeAPIReady = () => {
+      this._factory = (window as any).YT as PlayerFactory;
+    };
   }
 
   public static get(): Manager {
@@ -19,32 +36,19 @@ export default class Manager {
     return Manager._instance;
   }
 
-  public factory(factory?: any): any {
-    if (factory)
-      this._factory = factory;
-
-    return this._factory;
-  }
-
-  public register(callback: RegisterFunction) {
-    this._uid++;
-
-    if (this._factory !== undefined) {
-      callback(this._factory, `vue-youtube-${this._uid}`);
-      return;
+  public register(target: HTMLElement, callback: RegisterFunction) {
+    let targetId = '';
+    if (target.id) {
+      targetId = target.id;
+    }
+    else {
+      this._uid++;
+      targetId = `vue-youtube-${this._uid}`;
     }
 
-    this._players.push(callback);
-  }
-
-  public runQueued() {
-    for (const callback of this._players) {
-      if (this._factory !== undefined) {
-        this._uid++;
-        callback(this._factory, `vue-youtube-${this._uid}`);
-      }
-    }
-
-    this._players = [];
+    callback({
+      factory: this._factory,
+      id: targetId,
+    });
   }
 }
