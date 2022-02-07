@@ -1,34 +1,42 @@
 lockfileVersion: 5.3
 
-specifiers:
-  '@techassi/eslint-config': ^0.0.8
-  '@types/node': ^16.11.7
-  '@types/youtube': ^0.0.46
-  '@vitejs/plugin-vue': ^1.9.3
-  eslint: ^8.7.0
-  typescript: ^4.4.3
-  vite: ^2.6.4
-  vite-plugin-dts: ^0.9.4
-  vue: ^3.2.28
-  vue-demi: '*'
-  vue-tsc: ^0.3.0
-  vue2: npm:vue@^2.6.14
+importers:
 
-dependencies:
-  vue-demi: 0.12.1_vue@3.2.28
+  .:
+    specifiers:
+      '@techassi/eslint-config': ^0.0.9
+      '@types/node': ^16.11.7
+      '@vitejs/plugin-vue': ^1.9.3
+      eslint: ^8.7.0
+      typescript: ^4.4.3
+      vite: ^2.6.4
+      vite-plugin-dts: ^0.9.4
+      vue: ^3.2.28
+      vue-tsc: ^0.3.0
+      vue2: npm:vue@^2.6.14
+    devDependencies:
+      '@techassi/eslint-config': 0.0.9_eslint@8.7.0+typescript@4.5.5
+      '@types/node': 16.11.21
+      '@vitejs/plugin-vue': 1.10.2_vite@2.7.13
+      eslint: 8.7.0
+      typescript: 4.5.5
+      vite: 2.7.13
+      vite-plugin-dts: 0.9.9_vite@2.7.13
+      vue: 3.2.28
+      vue-tsc: 0.3.0_typescript@4.5.5
+      vue2: /vue/2.6.14
 
-devDependencies:
-  '@techassi/eslint-config': 0.0.8_eslint@8.7.0+typescript@4.5.5
-  '@types/node': 16.11.21
-  '@types/youtube': 0.0.46
-  '@vitejs/plugin-vue': 1.10.2_vite@2.7.13
-  eslint: 8.7.0
-  typescript: 4.5.5
-  vite: 2.7.13
-  vite-plugin-dts: 0.9.9_vite@2.7.13
-  vue: 3.2.28
-  vue-tsc: 0.3.0_typescript@4.5.5
-  vue2: /vue/2.6.14
+  packages/component:
+    specifiers:
+      vue-demi: '*'
+    dependencies:
+      vue-demi: 0.12.1_vue@3.2.28
+
+  packages/core:
+    specifiers:
+      vue-demi: '*'
+    dependencies:
+      vue-demi: 0.12.1_vue@3.2.28
 
 packages:
 
@@ -136,8 +144,8 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@techassi/eslint-config-base/0.0.8_eslint@8.7.0:
-    resolution: {integrity: sha512-r8ylmlo/8or1s5Aipb5YbfQ2N8hJ0yeOq6CvQvgmWFMH3a15Jm49705RyTP5tEy69pLP3cMNXunvXsI/FWXJfw==}
+  /@techassi/eslint-config-base/0.0.9_eslint@8.7.0:
+    resolution: {integrity: sha512-10iF5ClBdyeSkW8MzcoH41o2rDxpk30GwffLpdLszYiIoAxOWi1DvDRH4tfwPuX1Hkl30wP5vD3GenKJwD3gFg==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
@@ -149,13 +157,13 @@ packages:
       jsonc-eslint-parser: 2.1.0
     dev: true
 
-  /@techassi/eslint-config-ts/0.0.8_eslint@8.7.0+typescript@4.5.5:
-    resolution: {integrity: sha512-mTNLUrdXRKlniKv8diZmfbTj8HhwkKLcrxvQ5mVsShGMvPYDraIPX7MyUO4Jdeq0VaJbUUBv7dhpw2l2SOm2Ow==}
+  /@techassi/eslint-config-ts/0.0.9_eslint@8.7.0+typescript@4.5.5:
+    resolution: {integrity: sha512-c8wn2PWxK1/TCSBFTL9hPL5gHbyvkVw2ma9VRjeYrkuywmPqq2VICak+UGziBHtb04P4VHE0GjugIiV4/hcOPg==}
     peerDependencies:
       eslint: '>=7.4.0'
       typescript: '>=3.9'
     dependencies:
-      '@techassi/eslint-config-base': 0.0.8_eslint@8.7.0
+      '@techassi/eslint-config-base': 0.0.9_eslint@8.7.0
       '@typescript-eslint/eslint-plugin': 5.10.0_706fb07ce74b1db611f19a02ad2ce784
       '@typescript-eslint/parser': 5.10.0_eslint@8.7.0+typescript@4.5.5
       eslint: 8.7.0
@@ -164,12 +172,12 @@ packages:
       - supports-color
     dev: true
 
-  /@techassi/eslint-config-vue/0.0.8_eslint@8.7.0+typescript@4.5.5:
-    resolution: {integrity: sha512-kdpcs3fl65rqWkVtFYrCJwTVlK6TKYyBVyLRM4oGx0XgFrQgxEdS4mi+UnzNy0XoAkIzuxE3dmESEZcuAg9kQw==}
+  /@techassi/eslint-config-vue/0.0.9_eslint@8.7.0+typescript@4.5.5:
+    resolution: {integrity: sha512-9zPE81X2K4YM9LmIwDOS90T2LHmu9cgC7sAZbjozmueGF7nrUGqFYDmRqwEKbjNbOgIvx4T7oYM/rIO9BJRMog==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@techassi/eslint-config-ts': 0.0.8_eslint@8.7.0+typescript@4.5.5
+      '@techassi/eslint-config-ts': 0.0.9_eslint@8.7.0+typescript@4.5.5
       eslint: 8.7.0
       eslint-plugin-vue: 8.3.0_eslint@8.7.0
     transitivePeerDependencies:
@@ -177,12 +185,12 @@ packages:
       - typescript
     dev: true
 
-  /@techassi/eslint-config/0.0.8_eslint@8.7.0+typescript@4.5.5:
-    resolution: {integrity: sha512-rgJRIeaZ6CsD6yZroLOBYs7IUwxRzfc/hCDqL2ZEjsRtY66f3SOMAWR4CkQT92jJ1On4SH0zZWmZNw0E2e0ERg==}
+  /@techassi/eslint-config/0.0.9_eslint@8.7.0+typescript@4.5.5:
+    resolution: {integrity: sha512-VIEE9wZ0O8XkJe/sLkgfTrCg9IMzN8SYlvOeE6oamU2x4W0/oY7sLXU9aQwCNNVbC/G3Wqk69rQW7QYQSiCyOw==}
     peerDependencies:
       eslint: '>=7.4.0'
     dependencies:
-      '@techassi/eslint-config-vue': 0.0.8_eslint@8.7.0+typescript@4.5.5
+      '@techassi/eslint-config-vue': 0.0.9_eslint@8.7.0+typescript@4.5.5
       eslint: 8.7.0
       eslint-plugin-html: 6.2.0
       eslint-plugin-import: 2.25.4_eslint@8.7.0
@@ -217,10 +225,6 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
-    dev: true
-
-  /@types/youtube/0.0.46:
-    resolution: {integrity: sha512-Yf1Y4bDj/QIn8v+zdy0l7+OW6s1uoUvzVn5cGqPNCsL4iUW4gYUlIdQIRtH9NOHVgwZNLbVeeRDEn6N4RMq6Nw==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.10.0_706fb07ce74b1db611f19a02ad2ce784:
