@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
 
-import { hostCookie, hostNoCookie } from './shared';
+import { hostCookie, hostNoCookie, unrefElement } from './shared';
 import Manager from './manager';
 
 import type { MaybeRef, MaybeElementRef } from './shared';
@@ -32,7 +32,6 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   } = options;
 
   const host = cookie ? hostCookie : hostNoCookie;
-  const target = unref(element);
 
   // Callbacks
   let playbackQualityChangeCallback: PlaybackQualityChangeCallback;
@@ -46,7 +45,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   const videoId = ref(newVideoId);
   const player = ref<Player>();
 
-  // Functions
+  // Callback functions
   const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
     playbackQualityChangeCallback = cb;
   };
@@ -71,18 +70,25 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     readyCallback = cb;
   };
 
+  // Player functions
+  const playVideo = () => {
+    player.value?.playVideo();
+  };
+
   // Watchers
   const stop = watch(videoId, (newVideoId) => {
     player.value?.loadVideoById(newVideoId);
   });
 
   onMounted(() => {
+    const target = unrefElement(element);
+
     if (!target)
       return;
 
     Manager.get().register(target, ({ factory, id }) => {
       target.id = id;
-      player.value = factory.Player(id, {
+      player.value = new factory.Player(id, {
         videoId: unref(videoId),
         playerVars,
         height,
@@ -106,7 +112,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   });
 
   return {
-    ...unref(player),
+    playVideo,
     onPlaybackQualityChange,
     onPlaybackRateChange,
     onStateChange,

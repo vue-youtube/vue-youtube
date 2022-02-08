@@ -1,15 +1,11 @@
-import type { PlayerFactory } from './types';
-
 export type RegisterFunction = (data: RegisterFunctionReturn) => void;
-export type RegisterFunctionReturn = {
-  factory: PlayerFactory;
-  id: string;
-};
+export type RegisterFunctionReturn = { factory: any; id: string };
 
 export default class Manager {
   private static _instance: Manager;
 
-  private _factory!: PlayerFactory;
+  private _promise!: Promise<void>;
+  private _factory!: any;
   private _uid!: number;
 
   private constructor() {
@@ -24,9 +20,18 @@ export default class Manager {
     const firstTag = document.querySelectorAll('script')[0];
     firstTag.parentNode?.insertBefore(tag, firstTag);
 
-    (window as any).onYouTubeIframeAPIReady = () => {
-      this._factory = (window as any).YT as PlayerFactory;
+    let resolver: { (): void; (value: void | PromiseLike<void>): void };
+    this._promise = new Promise<void>((resolve) => {
+      resolver = resolve;
+    });
+
+    const registerFactory = () => {
+      this._factory = (window as any).YT;
+      resolver();
     };
+    registerFactory.bind(this);
+
+    (window as any).onYouTubeIframeAPIReady = registerFactory;
   }
 
   public static get(): Manager {
@@ -36,7 +41,9 @@ export default class Manager {
     return Manager._instance;
   }
 
-  public register(target: HTMLElement, callback: RegisterFunction) {
+  public async register(target: HTMLElement, callback: RegisterFunction) {
+    await this._promise;
+
     let targetId = '';
     if (target.id) {
       targetId = target.id;

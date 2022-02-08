@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import type { Events, PlayerEvent } from './events';
-import type { PlayerOptions } from './options';
 import type { VideoQuality } from './quality';
 import type { PlayerState } from './enums';
 
@@ -21,11 +20,6 @@ export type ListTypeUserUploads = 'user_uploads';
  * A playlist should be shown in the player
  */
 export type ListTypePlaylist = 'playlist';
-
-export interface PlayerFactory {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  Player(targetId: string, options: PlayerOptions): Player;
-}
 
 export interface Player {
   /**
