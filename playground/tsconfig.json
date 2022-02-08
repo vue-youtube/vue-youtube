@@ -1,0 +1,19 @@
+{
+    "extends": "../tsconfig.json",
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue"
+    ],
+    "compilerOptions": {
+        "paths": {
+            "@vue-youtube/component": [
+                "../packages/component/index.ts"
+            ],
+            "@vue-youtube/core": [
+                "../packages/core/index.ts"
+            ]
+        }
+    }
+}
