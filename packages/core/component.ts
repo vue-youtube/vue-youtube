@@ -3,7 +3,7 @@ import { defineComponent, h, ref } from 'vue-demi';
 import type { PropType } from 'vue-demi';
 import type { PlayerVars as PlayerVariables } from './types';
 
-import { usePlayer } from './composable';
+import { usePlayer } from '.';
 
 export const YoutubeIframe = defineComponent({
   name: 'YoutubeIframe',

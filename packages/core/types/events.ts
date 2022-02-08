@@ -1,6 +1,5 @@
+import type { PlayerState, PlayerError } from './enums';
 import type { VideoQuality } from './quality';
-import type { PlayerState } from './states';
-import type { PlayerError } from './errors';
 import type { Player } from './player';
 
 export type PlaybackQualityChangeCallback = PlayerEventCallback<PlaybackQualityChangeEvent>;

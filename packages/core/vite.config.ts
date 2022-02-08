@@ -1,13 +1,14 @@
-import { resolve, basename, dirname, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve('src/index.ts'),
-      name: 'vue-youtube-iframe',
-      fileName: format => `vue-youtube-iframe.${format}.js`,
+      entry: 'index.ts',
+      name: 'VueYoutube',
+      formats: ['cjs', 'es'],
+      fileName: format => `vue-youtube.${format === 'cjs' ? 'cjs' : 'mjs'}`,
     },
     rollupOptions: {
       external: ['vue'],
@@ -20,9 +21,10 @@ export default defineConfig({
   },
   plugins: [
     dts({
-      outputDir: 'dist/types/',
       exclude: 'node_modules',
-      include: 'src',
+      staticImport: true,
+      outputDir: 'dist',
+      include: '.',
       beforeWriteFile: (path: string, content: string) => {
         return {
           filePath: join(dirname(path).replace('src', ''), basename(path)),
