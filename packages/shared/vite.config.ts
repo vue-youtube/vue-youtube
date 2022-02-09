@@ -34,9 +34,4 @@ export default defineConfig({
       },
     }),
   ],
-  resolve: {
-    alias: {
-      '@vue-youtube/shared': '../shared/index.ts',
-    },
-  },
 });

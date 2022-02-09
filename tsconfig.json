@@ -13,8 +13,26 @@
             "esnext",
             "dom"
         ],
+        "paths": {
+            "@vue-youtube/shared": [
+                "./packages/shared/index.ts"
+            ],
+            "@vue-youtube/core": [
+                "./packages/core/index.ts"
+            ],
+            "@vue-youtube/shared/*": [
+                "./packages/shared/*"
+            ],
+            "@vue-youtube/core/*": [
+                "./packages/core/*"
+            ],
+        }
     },
     "include": [
         "packages"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/dist",
     ]
 }

@@ -41,6 +41,12 @@ importers:
     devDependencies:
       vue: 3.2.30
 
+  packages/shared:
+    specifiers:
+      vue-demi: '*'
+    dependencies:
+      vue-demi: 0.12.1_vue@3.2.30
+
 packages:
 
   /@babel/code-frame/7.16.7:

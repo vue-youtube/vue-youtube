@@ -1,7 +1,5 @@
 <template>
-  <div
-    ref="player"
-  />
+  <div ref="player" />
 </template>
 
 <script setup lang="ts">
@@ -15,5 +13,12 @@ setTimeout(() => {
   videoId.value = 'Im_t3NX9yes';
 }, 10 * 1000);
 
-usePlayer(videoId, player, { cookie: false, playerVars: {} });
+usePlayer(videoId, player, {
+  cookie: false,
+  playerVars: {
+    autoplay: 1,
+    autohide: 1,
+    mute: 1,
+  },
+});
 </script>

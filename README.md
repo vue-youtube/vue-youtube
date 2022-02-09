@@ -7,11 +7,11 @@ This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2
 🎉 Version `1.0.7` is currently in progress. Planned features for the upcoming release are:
 
 - [x] Add support for new events, see [here](https://developers.google.com/youtube/iframe_api_reference#Events)
-- [x] Switch to Vite toolchain
 - [x] Vue 2 support via `vue-demi` [#4](https://github.com/Techassi/vue-youtube-iframe/issues/4)
+- [x] Video ID reactivity, see [#3](https://github.com/Techassi/vue-youtube-iframe/issues/3)
+- [x] Switch to Vite toolchain
 - [ ] [WIP] Maybe remove `types/youtube` dependency by defining own types
 - [ ] [WIP] Add composable functions
-- [ ] [WIP] Video ID reactivity, see [#3](https://github.com/Techassi/vue-youtube-iframe/issues/3)
 - [ ] Write migration and new usage guide
 
 ## Usage

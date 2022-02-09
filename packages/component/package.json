@@ -13,6 +13,10 @@
         "vue-youtube-iframe"
     ],
     "license": "MIT",
+    "scripts": {
+        "build": "vue-tsc --noEmit && vite build",
+        "lint": "eslint --ext .js,.vue,.ts ."
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/vue-youtube/vue-youtube.git",
@@ -34,6 +38,8 @@
     },
     "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
     "dependencies": {
+        "@vue-youtube/shared": "workspace:*",
+        "@vue-youtube/core": "workspace:*",
         "vue-demi": "*"
     }
 }

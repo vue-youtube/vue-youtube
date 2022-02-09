@@ -1,4 +1,4 @@
-import { basename, dirname, join } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -8,7 +8,7 @@ export default defineConfig({
       entry: 'index.ts',
       name: 'VueYoutube',
       formats: ['cjs', 'es'],
-      fileName: format => `index.${format === 'cjs' ? 'cjs' : 'mjs'}`,
+      fileName: format => `vue-youtube.${format === 'cjs' ? 'cjs' : 'mjs'}`,
     },
     rollupOptions: {
       external: ['vue', '@vue-youtube/core', '@vue-youtube/shared'],
@@ -36,7 +36,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@vue-youtube/shared': '../shared/index.ts',
+      '@vue-youtube/core': resolve('../core/index.ts'),
     },
   },
 });

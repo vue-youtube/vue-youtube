@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference#onError
  */
@@ -19,4 +20,9 @@ export enum PlayerState {
   PAUSED = 2,
   BUFFERING = 3,
   VIDEO_CUED = 5
+}
+
+export enum CCLoadPolicy {
+  UserDefault = 0,
+  ForceOn = 1
 }

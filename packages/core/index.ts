@@ -1,19 +1,20 @@
+import { hostCookie, hostNoCookie, unrefElement } from '@vue-youtube/shared';
 import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
 
-import { hostCookie, hostNoCookie, unrefElement } from './shared';
-import Manager from './manager';
-
-import type { MaybeRef, MaybeElementRef } from './shared';
 import type {
   PlaybackQualityChangeCallback,
   PlaybackRateChangeCallback,
   PlayerStateChangeCallback,
   APIChangeCallback,
+  MaybeElementRef,
   ErrorCallback,
   ReadyCallback,
   PlayerVars,
+  MaybeRef,
   Player,
-} from './types';
+} from '@vue-youtube/shared';
+
+import Manager from './manager';
 
 export interface Options {
   height?: number | string;
@@ -70,11 +71,6 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     readyCallback = cb;
   };
 
-  // Player functions
-  const playVideo = () => {
-    player.value?.playVideo();
-  };
-
   // Watchers
   const stop = watch(videoId, (newVideoId) => {
     player.value?.loadVideoById(newVideoId);
@@ -112,7 +108,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   });
 
   return {
-    playVideo,
+    ...player.value,
     onPlaybackQualityChange,
     onPlaybackRateChange,
     onStateChange,
