@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@vue-youtube/component': resolve('../packages/component/index.ts'),
+      '@vue-youtube/shared': resolve('../packages/shared/index.ts'),
       '@vue-youtube/core': resolve('../packages/core/index.ts'),
     },
   },

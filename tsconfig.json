@@ -14,11 +14,17 @@
             "dom"
         ],
         "paths": {
+            "@vue-youtube/component": [
+                "./packages/component/index.ts"
+            ],
             "@vue-youtube/shared": [
                 "./packages/shared/index.ts"
             ],
             "@vue-youtube/core": [
                 "./packages/core/index.ts"
+            ],
+            "@vue-youtube/component/*": [
+                "./packages/component/*"
             ],
             "@vue-youtube/shared/*": [
                 "./packages/shared/*"
