@@ -1,5 +1,5 @@
 <template>
-  <div ref="player" />
+  <div ref="youtube" />
 </template>
 
 <script setup lang="ts">
@@ -7,18 +7,16 @@ import { usePlayer } from '@vue-youtube/core';
 import { ref } from 'vue';
 
 const videoId = ref('dQw4w9WgXcQ');
-const player = ref();
+const youtube = ref();
 
-setTimeout(() => {
-  videoId.value = 'Im_t3NX9yes';
-}, 10 * 1000);
-
-usePlayer(videoId, player, {
+const { onReady } = usePlayer(videoId, youtube, {
   cookie: false,
   playerVars: {
-    autoplay: 1,
-    autohide: 1,
     mute: 1,
   },
+});
+
+onReady((event) => {
+  event.target.playVideo();
 });
 </script>
