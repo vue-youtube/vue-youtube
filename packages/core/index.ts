@@ -1,5 +1,5 @@
-import { hostCookie, hostNoCookie, unrefElement } from '@vue-youtube/shared';
 import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
+import { hostCookie, hostNoCookie, unrefElement } from '@vue-youtube/shared';
 
 import type {
   PlaybackQualityChangeCallback,
