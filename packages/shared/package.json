@@ -1,6 +1,6 @@
 {
     "name": "@vue-youtube/shared",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "description": "Shared code for VueYoutube",
     "author": "Techassi <git@techassi.dev>",
     "keywords": [
@@ -24,14 +24,14 @@
     },
     "exports": {
         ".": {
-            "import": "./index.mjs",
-            "require": "./index.cjs",
-            "types": "./index.d.ts"
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "types": "./dist/index.d.ts"
         }
     },
-    "main": "./index.cjs",
-    "types": "./index.d.ts",
-    "module": "./index.mjs",
+    "main": "./dist/index.cjs",
+    "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
     "sideEffects": false,
     "bugs": {
         "url": "https://github.com/vue-youtube/vue-youtube/issues"
