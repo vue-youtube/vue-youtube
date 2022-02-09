@@ -1,5 +1,5 @@
 import { hostCookie, hostNoCookie, unrefElement } from '@vue-youtube/shared';
-import { onMounted, onUnmounted, ref, unref, watch } from 'vue-demi';
+import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
 
 import type {
   PlaybackQualityChangeCallback,
@@ -44,7 +44,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
 
   // Refs
   const videoId = ref(newVideoId);
-  const player = ref<Player>();
+  const player = shallowRef<Player>();
 
   // Callback functions
   const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
@@ -108,7 +108,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   });
 
   return {
-    ...player.value,
+    player,
     onPlaybackQualityChange,
     onPlaybackRateChange,
     onStateChange,
@@ -119,3 +119,4 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
 }
 
 export type UsePlayerReturn = ReturnType<typeof usePlayer>;
+export * from '@vue-youtube/shared';
