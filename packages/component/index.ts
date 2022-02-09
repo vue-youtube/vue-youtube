@@ -41,7 +41,7 @@ export const YoutubeIframe = defineComponent({
     'error',
     'ready',
   ],
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     const target = ref();
 
     const {
@@ -83,8 +83,7 @@ export const YoutubeIframe = defineComponent({
     });
 
     return () => {
-      if (slots.default)
-        return h('div', { ref: target }, slots.default());
+      return h('div', { ref: target });
     };
   },
 });
