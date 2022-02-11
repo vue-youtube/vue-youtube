@@ -3,8 +3,7 @@ node_modules/
 
 # Various dot and configuration files
 .eslintignore
-.eslintrc.js
-.prettierrc
+.eslintrc
 vite.config.js
 tsconfig.json
 

@@ -22,6 +22,9 @@
         "url": "git+https://github.com/vue-youtube/vue-youtube.git",
         "directory": "packages/component"
     },
+    "files": [
+        "dist"
+    ],
     "exports": {
         ".": {
             "import": "./dist/index.mjs",
