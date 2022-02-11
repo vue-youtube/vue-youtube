@@ -28,15 +28,21 @@ importers:
 
   packages/component:
     specifiers:
+      '@vue-youtube/core': workspace:*
+      '@vue-youtube/shared': workspace:*
       vue-demi: '*'
     dependencies:
+      '@vue-youtube/core': link:../core
+      '@vue-youtube/shared': link:../shared
       vue-demi: 0.12.1_vue@3.2.30
 
   packages/core:
     specifiers:
+      '@vue-youtube/shared': workspace:*
       vue: ^3.2.0
       vue-demi: '*'
     dependencies:
+      '@vue-youtube/shared': link:../shared
       vue-demi: 0.12.1_vue@3.2.30
     devDependencies:
       vue: 3.2.30
