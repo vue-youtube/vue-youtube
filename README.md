@@ -82,3 +82,8 @@ npm install @vue-youtube/core @vue-youtube/component
   <youtube-iframe video-id="dQw4w9WgXcQ" @ready="onReady" />
 </template>
 ```
+
+## Migration
+
+Migrating from `@techassi/vue-youtube-iframe` should be a drop-in replacement. An in-depth migration guide will follow
+soon.
