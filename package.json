@@ -1,6 +1,6 @@
 {
     "name": "@vue-youtube/monorepo",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "private": true,
     "description": "Integrate YouTube Iframe Player into Vue 2/3 applications",
     "author": "Techassi <git@techassi.dev>",
