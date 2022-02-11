@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { CCLoadPolicy } from './enums';
 import type { Events } from './events';
 
-export type AutohideOption = AlwaysVisible | HideAllControls | HideProgressBar;
-export type AlwaysVisible = 0;
-export type HideAllControls = 1;
-export type HideProgressBar = 2;
-
-export type AutoplayOption = Autoplay | NoAutoplay;
-export type NoAutoplay = 0;
-export type Autoplay = 1;
-
-export type MuteOption = NotMuted | Muted;
-export type NotMuted = 0;
-export type Muted = 1;
-
+export type ListType = 'search' | 'user_uploads' | 'playlist';
 export type ProgressBarColor = 'red' | 'white';
+export type ModestBrandingOption = 0 | 1;
+export type RelatedVideosOption = 0 | 1;
+export type ControlsOption = 0 | 1 | 2;
+export type AutohideOption = 0 | 1 | 2;
+export type CCLoadPolicyOption = 0 | 1;
+export type PlaysInlineOption = 0 | 1;
+export type FullscreenOption = 0 | 1;
+export type KeyboardOptions = 0 | 1;
+export type AutoplayOption = 0 | 1;
+export type IVPolicyOption = 1 | 3;
+export type ShowInfoOption = 0 | 1;
+export type JSAPIOptions = 0 | 1;
+export type MuteOption = 0 | 1;
+export type LoopOption = 0 | 1;
 
-/* eslint-disable unicorn/prevent-abbreviations */
 export interface PlayerOptions {
   width?: string | number | undefined;
   height?: string | number | undefined;
@@ -30,9 +30,25 @@ export interface PlayerOptions {
 export interface PlayerVars {
   autohide?: AutohideOption | undefined;
   autoplay?: AutoplayOption | undefined;
-  cc_load_policy?: CCLoadPolicy | undefined;
+  cc_load_policy?: CCLoadPolicyOption | undefined;
   cc_lang_pref?: string | undefined;
   color?: ProgressBarColor | undefined;
-  start?: number | undefined;
+  controls?: ControlsOption | undefined;
+  disablekb?: KeyboardOptions | undefined;
+  enablejsapi?: JSAPIOptions | undefined;
+  end?: number | undefined;
+  fs?: FullscreenOption | undefined;
+  hl?: string | undefined;
+  iv_load_policy?: IVPolicyOption | undefined;
+  list?: string | undefined;
+  listType?: ListType | undefined;
+  loop?: LoopOption | undefined;
+  modestbranding?: ModestBrandingOption | undefined;
   mute?: MuteOption | undefined;
+  origin?: string | undefined;
+  playlist?: string | undefined;
+  playsinline?: PlaysInlineOption | undefined;
+  rel?: RelatedVideosOption | undefined;
+  showinfo?: ShowInfoOption | undefined;
+  start?: number | undefined;
 }

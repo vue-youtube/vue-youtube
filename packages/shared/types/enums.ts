@@ -21,8 +21,3 @@ export enum PlayerState {
   BUFFERING = 3,
   VIDEO_CUED = 5
 }
-
-export enum CCLoadPolicy {
-  UserDefault = 0,
-  ForceOn = 1
-}

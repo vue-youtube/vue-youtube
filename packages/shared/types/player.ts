@@ -2,24 +2,7 @@
 import type { Events, PlayerEvent } from './events';
 import type { VideoQuality } from './quality';
 import type { PlayerState } from './enums';
-
-export type ListType = ListTypeSearch | ListTypeUserUploads | ListTypePlaylist;
-
-/**
- * A search area should be shown in the player
- * @deprecated
- */
-export type ListTypeSearch = 'search';
-
-/**
- * The user's uploads should load in the player
- */
-export type ListTypeUserUploads = 'user_uploads';
-
-/**
- * A playlist should be shown in the player
- */
-export type ListTypePlaylist = 'playlist';
+import type { ListType } from './options';
 
 export interface Player {
   /**
