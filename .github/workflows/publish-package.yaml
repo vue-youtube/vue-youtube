@@ -30,4 +30,4 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-         token: ${{ secrets.GITHUB_TOKEN }}
+         token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
