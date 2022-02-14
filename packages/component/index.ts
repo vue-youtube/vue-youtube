@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { defineComponent, h, ref } from 'vue-demi';
+import { defineComponent, h, ref, toRefs } from 'vue-demi';
 import { usePlayer } from '@vue-youtube/core';
 
 import type { PlayerVars } from '@vue-youtube/shared';
@@ -41,7 +41,8 @@ export const YoutubeIframe = defineComponent({
     'error',
     'ready',
   ],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
+    const { videoId } = toRefs(props);
     const target = ref();
 
     const {
@@ -51,7 +52,8 @@ export const YoutubeIframe = defineComponent({
       onApiChange,
       onError,
       onReady,
-    } = usePlayer(props.videoId, target, {
+      player,
+    } = usePlayer(videoId, target, {
       playerVars: props.playerVars,
       height: props.height,
       cookie: props.cookie,
@@ -82,8 +84,14 @@ export const YoutubeIframe = defineComponent({
       emit('ready', event);
     });
 
+    expose({
+      player,
+    });
+
     return () => {
       return h('div', { ref: target });
     };
   },
 });
+
+export * from '@vue-youtube/shared';
