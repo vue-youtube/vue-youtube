@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
-import { hostCookie, hostNoCookie, unrefElement } from '@vue-youtube/shared';
+import { hostCookie, hostNoCookie, unrefElement, PlayerState } from '@vue-youtube/shared';
 
 import type {
   PlaybackQualityChangeCallback,
@@ -43,8 +43,8 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   let readyCallback: ReadyCallback;
 
   // Refs
+  const instance = shallowRef<Player>();
   const videoId = ref(newVideoId);
-  const player = shallowRef<Player>();
 
   // Callback functions
   const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
@@ -71,9 +71,27 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     readyCallback = cb;
   };
 
+  // Toggle functions
+  const togglePlay = () => {
+    const state = instance.value?.getPlayerState();
+    if (state && state === PlayerState.PLAYING) {
+      instance.value?.pauseVideo();
+      return;
+    }
+    instance.value?.playVideo();
+  };
+
+  const toggleMute = () => {
+    if (instance.value?.isMuted()) {
+      instance.value.unMute();
+      return;
+    }
+    instance.value?.mute();
+  };
+
   // Watchers
   const stop = watch(videoId, (newVideoId) => {
-    player.value?.loadVideoById(newVideoId);
+    instance.value?.loadVideoById(newVideoId);
   });
 
   onMounted(() => {
@@ -84,7 +102,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
 
     Manager.get().register(target, ({ factory, id }) => {
       target.id = id;
-      player.value = new factory.Player(id, {
+      instance.value = new factory.Player(id, {
         videoId: unref(videoId),
         playerVars,
         height,
@@ -103,12 +121,14 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   });
 
   onUnmounted(() => {
-    player.value?.destroy();
+    instance.value?.destroy();
     stop();
   });
 
   return {
-    player,
+    instance,
+    togglePlay,
+    toggleMute,
     onPlaybackQualityChange,
     onPlaybackRateChange,
     onStateChange,

@@ -46,13 +46,13 @@ export const YoutubeIframe = defineComponent({
     const target = ref();
 
     const {
+      instance,
       onPlaybackQualityChange,
       onPlaybackRateChange,
       onStateChange,
       onApiChange,
       onError,
       onReady,
-      player,
     } = usePlayer(videoId, target, {
       playerVars: props.playerVars,
       height: props.height,
@@ -85,7 +85,7 @@ export const YoutubeIframe = defineComponent({
     });
 
     expose({
-      player,
+      instance,
     });
 
     return () => {
