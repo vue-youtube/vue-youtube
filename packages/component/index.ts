@@ -47,6 +47,8 @@ export const YoutubeIframe = defineComponent({
 
     const {
       instance,
+      togglePlay,
+      toggleMute,
       onPlaybackQualityChange,
       onPlaybackRateChange,
       onStateChange,
@@ -86,6 +88,8 @@ export const YoutubeIframe = defineComponent({
 
     expose({
       instance,
+      togglePlay,
+      toggleMute,
     });
 
     return () => {
