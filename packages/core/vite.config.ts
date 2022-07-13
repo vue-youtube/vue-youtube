@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { basename, dirname, join } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -8,7 +9,7 @@ export default defineConfig({
       entry: 'index.ts',
       name: 'VueYoutube',
       formats: ['cjs', 'es'],
-      fileName: format => `index.${format === 'cjs' ? 'cjs' : 'mjs'}`,
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['vue', '@vue-youtube/core', '@vue-youtube/shared'],
