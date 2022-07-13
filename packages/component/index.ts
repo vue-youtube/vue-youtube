@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { defineComponent, h, ref, toRefs } from 'vue-demi';
 import { usePlayer } from '@vue-youtube/core';
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference#onError
  */

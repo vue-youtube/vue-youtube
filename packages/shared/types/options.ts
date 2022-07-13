@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type { Events } from './events';
 
 export type ListType = 'search' | 'user_uploads' | 'playlist';

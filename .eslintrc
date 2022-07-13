@@ -8,6 +8,7 @@
     "@techassi"
   ],
   "rules": {
+    "@typescript-eslint/naming-convention": "off",
     "import/named": "off"
   }
 }
