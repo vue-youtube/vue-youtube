@@ -1,22 +1,22 @@
 <template>
-  <div ref="youtube" />
+  <div ref="yt" />
+  <button @click="toggleMute">
+    Toggle me
+  </button>
 </template>
 
 <script setup lang="ts">
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { usePlayer } from '@vue-youtube/core';
 import { ref } from 'vue';
 
 const videoId = ref('dQw4w9WgXcQ');
-const youtube = ref();
+const yt = ref();
 
-const { onReady } = usePlayer(videoId, youtube, {
-  cookie: false,
+const { toggleMute } = usePlayer(videoId, yt, {
   playerVars: {
+    autoplay: 1,
     mute: 1,
   },
-});
-
-onReady((event) => {
-  event.target.playVideo();
 });
 </script>

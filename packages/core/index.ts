@@ -23,6 +23,14 @@ export interface Options {
   cookie?: boolean;
 }
 
+/**
+ * Initialize a reactive YouTube player
+ * 
+ * @see https://vue-youtube.org/usage/composable.html
+ * @param newVideoId Video ID as a string or a ref
+ * @param element Template ref to the target element
+ * @param options Player options
+ */
 export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) {
   // Options
   const {
