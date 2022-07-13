@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type RegisterFunction = (data: RegisterFunctionReturn) => void;
 export type RegisterFunctionReturn = { factory: any; id: string };
+
+declare global {
+  interface Window {
+    onYouTubeIframeAPIReady: () => void;
+    YT: any;
+  }
+}
 
 export default class Manager {
   private static _instance: Manager;
@@ -26,12 +34,12 @@ export default class Manager {
     });
 
     const registerFactory = () => {
-      this._factory = (window as any).YT;
+      this._factory = window.YT;
       resolver();
     };
     registerFactory.bind(this);
 
-    (window as any).onYouTubeIframeAPIReady = registerFactory;
+    window.onYouTubeIframeAPIReady = registerFactory;
   }
 
   public static get(): Manager {
