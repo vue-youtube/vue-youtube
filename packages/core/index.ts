@@ -53,6 +53,8 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   // Refs
   const instance = shallowRef<Player>();
   const videoId = ref(newVideoId);
+  const shuffle = ref(false);
+  const loop = ref(false);
 
   // Callback functions
   const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
@@ -80,6 +82,12 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   };
 
   // Toggle functions
+
+  /**
+   * Play / pause the video.
+   * 
+   * @returns void
+   */
   const togglePlay = () => {
     const state = instance.value?.getPlayerState();
     if (state && state === PlayerState.PLAYING) {
@@ -89,12 +97,49 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     instance.value?.playVideo();
   };
 
+  /**
+   * Mute / unmute the player.
+   * 
+   * @returns void
+   */
   const toggleMute = () => {
     if (instance.value?.isMuted()) {
       instance.value.unMute();
       return;
     }
     instance.value?.mute();
+  };
+
+  /**
+   * Toggle playlist shuffling.
+   * 
+   * @returns void
+   */
+  const toggleShuffle = () => {
+    if (shuffle.value) {
+      instance.value?.setShuffle(false);
+      shuffle.value = false;
+      return;
+    }
+
+    instance.value?.setShuffle(true);
+    shuffle.value = true;
+  };
+
+  /**
+   * Toggle playlist looping.
+   * 
+   * @returns void
+   */
+  const toggleLoop = () => {
+    if (loop.value) {
+      instance.value?.setLoop(false);
+      loop.value = false;
+      return;
+    }
+
+    instance.value?.setLoop(true);
+    loop.value = true;
   };
 
   // Watchers
@@ -137,6 +182,8 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     instance,
     togglePlay,
     toggleMute,
+    toggleLoop,
+    toggleShuffle,
     onPlaybackQualityChange,
     onPlaybackRateChange,
     onStateChange,
