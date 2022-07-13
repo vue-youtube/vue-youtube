@@ -11,10 +11,12 @@ This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2
 - [x] Video ID reactivity, see [#3](https://github.com/Techassi/vue-youtube-iframe/issues/3)
 - [x] Switch to Vite toolchain
 - [x] Add composable functions
-- [ ] [WIP] Remove `types/youtube` dependency by defining own types
+- [x] Remove `types/youtube` dependency by defining own types
 - [ ] Write migration and new usage guide
 
 ## Usage
+
+For a detailed usage guide, check out the official [docs](https://vue-youtube.github.io/docs/).
 
 ### Installation
 
