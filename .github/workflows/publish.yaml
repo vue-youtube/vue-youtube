@@ -1,28 +1,30 @@
 name: publish-package
 on:
   push:
-    tags:        
+    tags:
       - v*
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.1.0
+        uses: pnpm/action-setup@v2.2.2
         with:
-          version: 6.28.0
+          version: latest
       - name: Install nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Build library
+        run: pnpm -r build
       - name: Publish package
         run: npm publish --access public --workspaces
         env:
