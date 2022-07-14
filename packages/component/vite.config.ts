@@ -6,9 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'index.ts',
-      name: 'VueYoutube',
       formats: ['cjs', 'es'],
-      fileName: format => `index.${format === 'cjs' ? 'cjs' : 'mjs'}`,
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['vue', '@vue-youtube/core', '@vue-youtube/shared'],

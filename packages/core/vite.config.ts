@@ -6,7 +6,6 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'index.ts',
-      name: 'VueYoutube',
       formats: ['cjs', 'es'],
       fileName: 'index',
     },

@@ -28,13 +28,13 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "require": "./dist/index.cjs",
+            "require": "./dist/index.js",
             "import": "./dist/index.mjs"
         }
     },
     "types": "./dist/index.d.ts",
     "module": "./dist/index.mjs",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.js",
     "sideEffects": false,
     "bugs": {
         "url": "https://github.com/vue-youtube/vue-youtube/issues"
