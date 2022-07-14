@@ -49,9 +49,12 @@ importers:
 
   packages/shared:
     specifiers:
-      vue-demi: '*'
+      vue: ^3.0.0
+      vue-demi: latest
     dependencies:
-      vue-demi: 0.12.1
+      vue-demi: 0.13.4_vue@3.2.37
+    devDependencies:
+      vue: 3.2.37
 
 packages:
 

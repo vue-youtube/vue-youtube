@@ -1,6 +1,6 @@
 {
     "name": "@vue-youtube/core",
-    "version": "1.1.0",
+    "version": "0.0.1",
     "description": "Integrate YouTube Iframe Player into Vue 2/3 applications",
     "author": "Techassi <git@techassi.dev>",
     "keywords": [
