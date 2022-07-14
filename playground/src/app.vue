@@ -1,7 +1,7 @@
 <template>
   <div ref="yt" />
   <button @click="toggleMute">
-    Toggle me
+    Toggle volume
   </button>
 </template>
 
