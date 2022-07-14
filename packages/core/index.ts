@@ -26,7 +26,7 @@ export interface Options {
 /**
  * Initialize a reactive YouTube player
  * 
- * @see https://vue-youtube.org/usage/composable.html
+ * @see https://vue-youtube.github.io/docs/usage/composable.html
  * @param newVideoId Video ID as a string or a ref
  * @param element Template ref to the target element
  * @param options Player options
@@ -57,26 +57,62 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   const loop = ref(false);
 
   // Callback functions
+
+  /**
+   * Register a callback function which gets executed when the playback quality changes
+   * 
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onplaybackqualitychange
+   * @param cb PlaybackQualityChangeCallback
+   */
   const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
     playbackQualityChangeCallback = cb;
   };
 
+  /**
+   * Register a callback function which gets executed when the playback rate changes
+   * 
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onplaybackratechange
+   * @param cb PlaybackRateChangeCallback
+   */
   const onPlaybackRateChange = (cb: PlaybackRateChangeCallback) => {
     playbackRateChangeCallback = cb;
   };
 
+  /**
+   * Register a callback function which gets executed when the player state changes
+   * 
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onstatechange
+   * @param cb PlayerStateChangeCallback
+   */
   const onStateChange = (cb: PlayerStateChangeCallback) => {
     playerStateChangeCallback = cb;
   };
 
+  /**
+   * Register a callback function which gets executed when the API changes
+   * 
+   * @param cb APIChangeCallback
+   */
   const onApiChange = (cb: APIChangeCallback) => {
     apiChangeCallback = cb;
   };
 
+  /**
+   * Register a callback function which gets executed when an error is encountered
+   * 
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onerror
+   * @param cb ErrorCallback
+   */
   const onError = (cb: ErrorCallback) => {
     errorCallback = cb;
   };
 
+  /**
+   * Register a callback function which gets executed when the player is ready
+   * 
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onready
+   * @param cb ReadyCallback
+   */
   const onReady = (cb: ReadyCallback) => {
     readyCallback = cb;
   };
@@ -84,9 +120,9 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   // Toggle functions
 
   /**
-   * Play / pause the video.
+   * Play / pause the video
    * 
-   * @returns void
+   * @see https://vue-youtube.github.io/docs/usage/helpers.html#toggleplay
    */
   const togglePlay = () => {
     const state = instance.value?.getPlayerState();
@@ -98,9 +134,9 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   };
 
   /**
-   * Mute / unmute the player.
+   * Mute / unmute the player
    * 
-   * @returns void
+   * @see https://vue-youtube.github.io/docs/usage/helpers.html#togglemute
    */
   const toggleMute = () => {
     if (instance.value?.isMuted()) {
@@ -111,9 +147,9 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   };
 
   /**
-   * Toggle playlist shuffling.
+   * Toggle playlist shuffling
    * 
-   * @returns void
+   * @see https://vue-youtube.github.io/docs/usage/helpers.html#toggleshuffle
    */
   const toggleShuffle = () => {
     if (shuffle.value) {
@@ -129,7 +165,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
   /**
    * Toggle playlist looping.
    * 
-   * @returns void
+   * @see https://vue-youtube.github.io/docs/usage/helpers.html#toggleloop
    */
   const toggleLoop = () => {
     if (loop.value) {
