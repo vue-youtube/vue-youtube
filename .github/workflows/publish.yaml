@@ -26,7 +26,7 @@ jobs:
       - name: Build library
         run: pnpm -r build
       - name: Publish package
-        run: npm publish --access public --workspaces
+        run: pnpm -r publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Create release
