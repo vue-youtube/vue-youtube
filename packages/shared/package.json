@@ -1,6 +1,6 @@
 {
     "name": "@vue-youtube/shared",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Shared code for VueYoutube",
     "author": "Techassi <git@techassi.dev>",
     "keywords": [
