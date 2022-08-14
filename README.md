@@ -2,15 +2,18 @@
 
 This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2/3 app.
 
-## 🧪 New in version 0.0.1
-
-🎉 Version `0.0.1` includes the following features:
+## 🎉 Version 0.0.1 + 0.0.2
 
 - Support for new events of the YouTube Iframe API, see [here](https://developers.google.com/youtube/iframe_api_reference#Events)
 - Vue 2 support via VueDemi
 - Composition support
 - Vite toolchain
 - and [more...](https://vue-youtube.github.io/docs/introduction/overview.html)
+
+## 🧪 Upcoming changes in version 0.0.3
+
+- Register the manager via `createManager()` and `app.use()`
+- Event callbacks, like `onReady` or `onError`, will be able to accept multiple user provided callback functions
 
 ## Usage
 
