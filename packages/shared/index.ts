@@ -1,5 +1,4 @@
-export const hostNoCookie = 'https://www.youtube-nocookie.com';
-export const hostCookie = 'https://www.youtube.com';
+export * from './constants';
 
 export * from './types/options';
 export * from './types/quality';
