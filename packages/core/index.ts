@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
-import { hostCookie, hostNoCookie, unrefElement, PlayerState } from '@vue-youtube/shared';
+import { HOST_COOKIE, HOST_NO_COOKIE, unrefElement, PlayerState } from '@vue-youtube/shared';
 
 import type {
   PlaybackQualityChangeCallback,
@@ -14,7 +14,7 @@ import type {
   Player,
 } from '@vue-youtube/shared';
 
-import Manager from './manager';
+import { injectManager } from './manager';
 
 export interface Options {
   height?: number | string;
@@ -31,7 +31,7 @@ export interface Options {
  * @param element Template ref to the target element
  * @param options Player options
  */
-export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) {
+export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) => {
   // Options
   const {
     playerVars = {},
@@ -40,7 +40,8 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     height = 720,
   } = options;
 
-  const host = cookie ? hostCookie : hostNoCookie;
+  const host = cookie ? HOST_COOKIE : HOST_NO_COOKIE;
+  const manager = injectManager();
 
   // Callbacks
   let playbackQualityChangeCallback: PlaybackQualityChangeCallback;
@@ -189,7 +190,7 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     if (!target)
       return;
 
-    Manager.get().register(target, ({ factory, id }) => {
+    manager.registerPlayer(target, ({ factory, id }) => {
       target.id = id;
       instance.value = new factory.Player(id, {
         videoId: unref(videoId),
@@ -227,7 +228,8 @@ export function usePlayer(newVideoId: MaybeRef<string>, element: MaybeElementRef
     onError,
     onReady,
   };
-}
+};
 
 export type UsePlayerReturn = ReturnType<typeof usePlayer>;
 export * from '@vue-youtube/shared';
+export * from './manager';

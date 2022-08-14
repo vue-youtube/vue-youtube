@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { App } from 'vue-demi';
+import { inject } from 'vue-demi';
+
+import { PROVIDE_KEY } from '@vue-youtube/shared';
+
 export type RegisterFunction = (data: RegisterFunctionReturn) => void;
 export type RegisterFunctionReturn = { factory: any; id: string };
 
@@ -9,61 +14,89 @@ declare global {
   }
 }
 
-export default class Manager {
-  private static _instance: Manager;
-
-  private _promise!: Promise<void>;
-  private _factory!: any;
-  private _uid!: number;
-
-  private constructor() {
-    this._uid = 0;
-    this._insertScript();
-  }
-
-  private _insertScript() {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/player_api';
-
-    const firstTag = document.querySelectorAll('script')[0];
-    firstTag.parentNode?.insertBefore(tag, firstTag);
-
-    let resolver: { (): void; (value: void | PromiseLike<void>): void };
-    this._promise = new Promise<void>((resolve) => {
-      resolver = resolve;
-    });
-
-    const registerFactory = () => {
-      this._factory = window.YT;
-      resolver();
-    };
-    registerFactory.bind(this);
-
-    window.onYouTubeIframeAPIReady = registerFactory;
-  }
-
-  public static get(): Manager {
-    if (!Manager._instance)
-      Manager._instance = new Manager();
-
-    return Manager._instance;
-  }
-
-  public async register(target: HTMLElement, callback: RegisterFunction) {
-    await this._promise;
-
-    let targetId = '';
-    if (target.id) {
-      targetId = target.id;
-    }
-    else {
-      this._uid++;
-      targetId = `vue-youtube-${this._uid}`;
-    }
-
-    callback({
-      factory: this._factory,
-      id: targetId,
-    });
-  }
+export interface Manager {
+  install(app: App): void;
+  insertScript(): void;
+  registerPlayer(target: HTMLElement, cb: RegisterFunction): void;
+  register(id: string, cb: RegisterFunction): void;
 }
+
+export const injectManager = () => {
+  const manager = inject<Manager>(PROVIDE_KEY);
+
+  if (!manager)
+    throw new Error('You may forget to apply app.use(manager)');
+
+  return manager;
+};
+
+export const createManager = () => {
+  const delayedPlayers = new Map<string, RegisterFunction>();
+  const players = new Map<string, RegisterFunction>();
+  let factory: any;
+  let counter = 0;
+
+  const manager: Manager = {
+    install(app) {
+      app.config.globalProperties.$vueYutubeManager = manager;
+      app.provide(PROVIDE_KEY, manager);
+
+      manager.insertScript();
+    },
+    insertScript() {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/player_api';
+
+      const firstTag = document.querySelectorAll('script')[0];
+      firstTag.parentNode?.insertBefore(tag, firstTag);
+
+      window.onYouTubeIframeAPIReady = () => {
+        factory = window.YT;
+
+        for (const [id, cb] of delayedPlayers.entries()) {
+          delayedPlayers.delete(id);
+          players.set(id, cb);
+          cb({
+            factory,
+            id,
+          });
+        }
+      };
+    },
+    registerPlayer(target, cb) {
+      let targetId = '';
+
+      if (target.id) {
+        targetId = target.id;
+      }
+      else {
+        counter++;
+        targetId = `vue-youtube-${counter}`;
+      }
+
+      const fn = players.get(targetId);
+      if (fn !== undefined) {
+        fn({
+          id: targetId,
+          factory,
+        });
+      }
+      else {
+        this.register(targetId, cb);
+      }
+    },
+    register(id, cb) {
+      if (factory !== undefined) {
+        cb({
+          factory,
+          id,
+        });
+      }
+      else {
+        delayedPlayers.set(id, cb);
+      }
+    },
+  };
+
+  return manager;
+};
