@@ -90,3 +90,7 @@ npm install @vue-youtube/core @vue-youtube/component
 
 Migrating from `@techassi/vue-youtube-iframe` should be a drop-in replacement. An in-depth migration guide can be found
 [here](https://vue-youtube.github.io/docs/migration/).
+
+## Contributing
+
+If you want to contribute a cool new feature just open a PR and I will be happy to look into it!
