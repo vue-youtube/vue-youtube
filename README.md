@@ -30,6 +30,17 @@ yarn add @vue-youtube/core
 pnpm install @vue-youtube/core
 ```
 
+### Create Manager
+
+```ts
+import { createManager } from '@vue-youtube/core';
+import { createApp } from 'vue';
+
+import app from './app.vue';
+
+createApp(app).use(createManager()).mount('#app');
+```
+
 ### Composable usage
 
 `component.vue`
