@@ -30,6 +30,13 @@ export const injectManager = () => {
   return manager;
 };
 
+/**
+ * Create a YouTube Iframe player manager. The manager provides a `install` method which gets called
+ * by Vue's `app.use()`.
+ * 
+ * @see https://vue-youtube.github.io/docs/usage/composable.html
+ * @returns Manager
+ */
 export const createManager = () => {
   const delayedPlayers = new Map<string, RegisterFunction>();
   const players = new Map<string, RegisterFunction>();
@@ -41,7 +48,7 @@ export const createManager = () => {
       app.config.globalProperties.$vueYutubeManager = manager;
       app.provide(PROVIDE_KEY, manager);
 
-      manager.insertScript();
+      this.insertScript();
     },
     insertScript() {
       const tag = document.createElement('script');
