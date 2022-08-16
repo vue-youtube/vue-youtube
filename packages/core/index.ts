@@ -5,12 +5,15 @@ import type {
   PlaybackQualityChangeCallback,
   PlaybackRateChangeCallback,
   PlayerStateChangeCallback,
+  PlayerEventCallback,
   APIChangeCallback,
   MaybeElementRef,
   ErrorCallback,
   ReadyCallback,
+  PlayerOptions,
   PlayerVars,
   MaybeRef,
+  AnyEvent,
   Player,
 } from '@vue-youtube/shared';
 
@@ -44,12 +47,12 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
   const manager = injectManager();
 
   // Callbacks
-  let playbackQualityChangeCallback: PlaybackQualityChangeCallback;
-  let playbackRateChangeCallback: PlaybackRateChangeCallback;
-  let playerStateChangeCallback: PlayerStateChangeCallback;
-  let apiChangeCallback: APIChangeCallback;
-  let errorCallback: ErrorCallback;
-  let readyCallback: ReadyCallback;
+  const playbackQualityChangeCallback = new Array<PlaybackQualityChangeCallback>();
+  const playbackRateChangeCallback = new Array<PlaybackRateChangeCallback>();
+  const playerStateChangeCallback = new Array<PlayerStateChangeCallback>();
+  const apiChangeCallback = new Array<APIChangeCallback>();
+  const errorCallback = new Array<ErrorCallback>();
+  const readyCallback = new Array<ReadyCallback>();
 
   // Refs
   const instance = shallowRef<Player>();
@@ -59,63 +62,69 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
 
   // Callback functions
 
+  const triggerCallbacks = <T extends AnyEvent>(event: T, cbs: Array<PlayerEventCallback<T>>) => {
+    for (const cb of cbs)
+      cb(event);
+  };
+
   /**
-   * Register a callback function which gets executed when the playback quality changes
+   * Register callback function(s) which get executed when the playback quality changes
    * 
    * @see https://vue-youtube.github.io/docs/usage/composable.html#onplaybackqualitychange
-   * @param cb PlaybackQualityChangeCallback
+   * @param cb One ore more playback quality change callbacks
    */
-  const onPlaybackQualityChange = (cb: PlaybackQualityChangeCallback) => {
-    playbackQualityChangeCallback = cb;
+  const onPlaybackQualityChange = (...cb: Array<PlaybackQualityChangeCallback>) => {
+    playbackQualityChangeCallback.push(...cb);
   };
 
   /**
-   * Register a callback function which gets executed when the playback rate changes
+   * Register callback function(s) which get executed when the playback rate changes
    * 
    * @see https://vue-youtube.github.io/docs/usage/composable.html#onplaybackratechange
-   * @param cb PlaybackRateChangeCallback
+   * @param cb One ore more playback rate change callbacks
    */
-  const onPlaybackRateChange = (cb: PlaybackRateChangeCallback) => {
-    playbackRateChangeCallback = cb;
+  const onPlaybackRateChange = (...cb: Array<PlaybackRateChangeCallback>) => {
+    playbackRateChangeCallback.push(...cb);
   };
 
   /**
-   * Register a callback function which gets executed when the player state changes
+   * Register callback function(s) which get executed when the player state changes
    * 
    * @see https://vue-youtube.github.io/docs/usage/composable.html#onstatechange
-   * @param cb PlayerStateChangeCallback
+   * @param cb One ore more player state change callbacks
    */
-  const onStateChange = (cb: PlayerStateChangeCallback) => {
-    playerStateChangeCallback = cb;
+  const onStateChange = (...cb: Array<PlayerStateChangeCallback>) => {
+    playerStateChangeCallback.push(...cb);
   };
 
   /**
-   * Register a callback function which gets executed when the API changes
+   * Register callback function(s) which get executed when the API changes
    * 
-   * @param cb APIChangeCallback
+   * @see https://vue-youtube.github.io/docs/usage/composable.html#onapichange
+   * @param cb One ore more API change callbacks
    */
-  const onApiChange = (cb: APIChangeCallback) => {
-    apiChangeCallback = cb;
+  const onApiChange = (...cb: Array<APIChangeCallback>) => {
+    apiChangeCallback.push(...cb);
   };
 
   /**
-   * Register a callback function which gets executed when an error is encountered
+   * Register callback function(s) which get executed when an error is encountered
    * 
    * @see https://vue-youtube.github.io/docs/usage/composable.html#onerror
-   * @param cb ErrorCallback
+   * @param cb One ore more error callbacks
    */
-  const onError = (cb: ErrorCallback) => {
-    errorCallback = cb;
+  const onError = (...cb: Array<ErrorCallback>) => {
+    errorCallback.push(...cb);
   };
 
   /**
    * Register a callback function which gets executed when the player is ready
    * 
    * @see https://vue-youtube.github.io/docs/usage/composable.html#onready
-   * @param cb ReadyCallback
+   * @param cb One ore more ready callbacks
    */
-  const onReady = (cb: ReadyCallback) => {
-    readyCallback = cb;
+  const onReady = (...cb: Array<ReadyCallback>) => {
+    readyCallback.push(...cb);
   };
 
   // Toggle functions
@@ -199,14 +208,26 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
         width,
         host,
         events: {
-          onPlaybackQualityChange: playbackQualityChangeCallback,
-          onPlaybackRateChange: playbackRateChangeCallback,
-          onStateChange: playerStateChangeCallback,
-          onApiChange: apiChangeCallback,
-          onError: errorCallback,
-          onReady: readyCallback,
+          onPlaybackQualityChange: (event) => {
+            triggerCallbacks(event, playbackQualityChangeCallback);
+          },
+          onPlaybackRateChange: (event) => {
+            triggerCallbacks(event, playbackRateChangeCallback);
+          },
+          onStateChange: (event) => {
+            triggerCallbacks(event, playerStateChangeCallback);
+          },
+          onApiChange: (event) => {
+            triggerCallbacks(event, apiChangeCallback);
+          },
+          onError: (event) => {
+            triggerCallbacks(event, errorCallback);
+          },
+          onReady: (event) => {
+            triggerCallbacks(event, readyCallback);
+          },
         },
-      }) as Player;
+      } as PlayerOptions) as Player;
     });
   });
 
