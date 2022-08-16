@@ -34,7 +34,7 @@ export const injectManager = () => {
  * Create a YouTube Iframe player manager. The manager provides a `install` method which gets called
  * by Vue's `app.use()`.
  * 
- * @see https://vue-youtube.github.io/docs/usage/composable.html
+ * @see https://vue-youtube.github.io/docs/usage/manager.html
  * @returns Manager
  */
 export const createManager = () => {
