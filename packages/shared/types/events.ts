@@ -41,3 +41,10 @@ export interface ErrorEvent extends PlayerEvent {
 export interface PlayerEventCallback<T extends PlayerEvent> {
   (event: T): void;
 }
+
+export type AnyEvent =
+  PlaybackQualityChangeEvent |
+  PlaybackRateChangeEvent |
+  PlayerStateChangeEvent |
+  PlayerEvent |
+  ErrorEvent;
