@@ -23,7 +23,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Lint library
+        run: pnpm -r lint
       - name: Build library
+        if: ${{ success() }}
         run: pnpm -r build
       - name: Publish package
         run: pnpm -r publish --access public --no-git-checks
