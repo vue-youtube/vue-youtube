@@ -35,9 +35,10 @@
         }
     },
     "include": [
-        "packages"
+        "packages",
     ],
     "exclude": [
+        "packages/nuxt",
         "node_modules",
         "**/dist",
     ]
