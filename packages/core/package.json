@@ -1,59 +1,60 @@
 {
-    "name": "@vue-youtube/core",
-    "version": "0.0.2",
-    "description": "Integrate YouTube Iframe Player into Vue 2/3 applications",
-    "author": "Techassi <git@techassi.dev>",
-    "keywords": [
-        "vue",
-        "youtube",
-        "iframe",
-        "embed",
-        "api",
-        "youtube iframe api",
-        "vue-youtube-iframe"
-    ],
-    "license": "MIT",
-    "scripts": {
-        "build": "vue-tsc --noEmit && vite build",
-        "lint": "eslint --ext .js,.vue,.ts ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/vue-youtube/vue-youtube.git",
-        "directory": "packages/core"
-    },
-    "files": [
-        "dist"
-    ],
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs"
-        }
-    },
-    "types": "./dist/index.d.ts",
-    "module": "./dist/index.mjs",
-    "main": "./dist/index.js",
-    "sideEffects": false,
-    "bugs": {
-        "url": "https://github.com/vue-youtube/vue-youtube/issues"
-    },
-    "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
-    "peerDependencies": {
-        "@vue/composition-api": "^1.1.0",
-        "vue": "^2.7.0 || >=3.0.0"
-    },
-    "peerDependenciesMeta": {
-        "@vue/composition-api": {
-            "optional": true
-        }
-    },
-    "devDependencies": {
-        "vue": "^3.0.0"
-    },
-    "dependencies": {
-        "@vue-youtube/shared": "workspace:*",
-        "vue-demi": "latest"
+  "name": "@vue-youtube/core",
+  "version": "0.0.2",
+  "description": "Integrate YouTube Iframe Player into Vue 2/3 applications",
+  "author": "Techassi <git@techassi.dev>",
+  "keywords": [
+    "vue",
+    "youtube",
+    "iframe",
+    "embed",
+    "api",
+    "youtube iframe api",
+    "vue-youtube-iframe"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "lint": "eslint --ext .js,.vue,.ts ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-youtube/vue-youtube.git",
+    "directory": "packages/core"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     }
+  },
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.js",
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/vue-youtube/vue-youtube/issues"
+  },
+  "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
+  "peerDependencies": {
+    "@vue/composition-api": "^1.1.0",
+    "vue": "^2.7.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "@vue-youtube/shared": "workspace:*",
+    "vue-demi": "latest"
+  }
 }
