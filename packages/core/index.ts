@@ -199,7 +199,7 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
     if (!target)
       return;
 
-    manager.registerPlayer(target, ({ factory, id }) => {
+    manager.register(target, ({ factory, id }) => {
       target.id = id;
       instance.value = new factory.Player(id, {
         videoId: unref(videoId),

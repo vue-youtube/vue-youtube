@@ -14,11 +14,20 @@ declare global {
   }
 }
 
+export interface ManagerState {
+  backlog: Map<string, RegisterFunction>;
+  players: Map<string, RegisterFunction>;
+  counter: number;
+  factory: any;
+}
+
 export interface Manager {
   install(app: App): void;
-  insertScript(): void;
-  registerPlayer(target: HTMLElement, cb: RegisterFunction): void;
-  register(id: string, cb: RegisterFunction): void;
+  register(target: HTMLElement, cb: RegisterFunction): void;
+
+  state: ManagerState;
+
+  _insert(): void;
 }
 
 export const injectManager = () => {
@@ -38,19 +47,45 @@ export const injectManager = () => {
  * @returns Manager
  */
 export const createManager = () => {
-  const delayedPlayers = new Map<string, RegisterFunction>();
-  const players = new Map<string, RegisterFunction>();
-  let factory: any;
-  let counter = 0;
+  const state: ManagerState = {
+    backlog: new Map<string, RegisterFunction>(),
+    players: new Map<string, RegisterFunction>(),
+    factory: undefined,
+    counter: 1,
+  };
 
   const manager: Manager = {
     install(app) {
       app.config.globalProperties.$vueYutubeManager = manager;
       app.provide(PROVIDE_KEY, manager);
 
-      this.insertScript();
+      this._insert();
     },
-    insertScript() {
+
+    register(target, cb) {
+      const targetId = target.id ? target.id : `vue-youtube-${this.state.counter++}`;
+
+      const fn = this.state.players.get(targetId);
+      if (fn !== undefined) {
+        fn({
+          factory: this.state.factory,
+          id: targetId,
+        });
+        return;
+      }
+
+      if (this.state.factory !== undefined) {
+        cb({
+          factory: this.state.factory,
+          id: targetId,
+        });
+        return;
+      }
+
+      this.state.backlog.set(targetId, cb);
+    },
+
+    _insert() {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/player_api';
 
@@ -58,51 +93,20 @@ export const createManager = () => {
       firstTag.parentNode?.insertBefore(tag, firstTag);
 
       window.onYouTubeIframeAPIReady = () => {
-        factory = window.YT;
+        this.state.factory = window.YT;
 
-        for (const [id, cb] of delayedPlayers.entries()) {
-          delayedPlayers.delete(id);
-          players.set(id, cb);
+        for (const [id, cb] of this.state.backlog.entries()) {
+          this.state.backlog.delete(id);
+          this.state.players.set(id, cb);
           cb({
-            factory,
+            factory: this.state.factory,
             id,
           });
         }
       };
     },
-    registerPlayer(target, cb) {
-      let targetId = '';
 
-      if (target.id) {
-        targetId = target.id;
-      }
-      else {
-        counter++;
-        targetId = `vue-youtube-${counter}`;
-      }
-
-      const fn = players.get(targetId);
-      if (fn !== undefined) {
-        fn({
-          id: targetId,
-          factory,
-        });
-      }
-      else {
-        this.register(targetId, cb);
-      }
-    },
-    register(id, cb) {
-      if (factory !== undefined) {
-        cb({
-          factory,
-          id,
-        });
-      }
-      else {
-        delayedPlayers.set(id, cb);
-      }
-    },
+    state,
   };
 
   return manager;
