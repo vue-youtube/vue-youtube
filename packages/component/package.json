@@ -41,6 +41,15 @@
     "url": "https://github.com/vue-youtube/vue-youtube/issues"
   },
   "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
+  "peerDependencies": {
+    "@vue/composition-api": "^1.1.0",
+    "vue": "^2.7.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@vue-youtube/shared": "workspace:*",
     "@vue-youtube/core": "workspace:*",

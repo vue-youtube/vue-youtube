@@ -9,7 +9,8 @@
         "preinstall": "npx only-allow pnpm",
         "lint": "eslint --ext .js,.vue,.ts .",
         "lint:fix": "pnpm lint -- --fix",
-        "play": "cd playground && pnpm dev"
+        "play:nuxt": "cd playgrounds/nuxt && pnpm dev",
+        "play:vue": "cd playgrounds/vue && pnpm dev"
     },
     "devDependencies": {
         "@techassi/eslint-config": "^0.0.9",
