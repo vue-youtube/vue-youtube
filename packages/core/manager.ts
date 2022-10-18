@@ -34,7 +34,7 @@ export const injectManager = () => {
   const manager = inject<Manager>(PROVIDE_KEY);
 
   if (!manager)
-    throw new Error('You may forget to apply app.use(manager)');
+    throw new Error('You may forget to apply app.use(manager). See https://vue-youtube.github.io/docs/usage/manager.html for more information');
 
   return manager;
 };
