@@ -56,9 +56,7 @@ export const createManager = () => {
 
   const manager: Manager = {
     install(app) {
-      app.config.globalProperties.$vueYutubeManager = manager;
       app.provide(PROVIDE_KEY, manager);
-
       this._insert();
     },
 
