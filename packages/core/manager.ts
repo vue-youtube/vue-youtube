@@ -61,7 +61,7 @@ export const createManager = () => {
     },
 
     register(target, cb) {
-      const targetId = target.id ? target.id : `vue-youtube-${this.state.counter++}`;
+      const targetId = target.id || `vue-youtube-${this.state.counter++}`;
 
       const fn = this.state.players.get(targetId);
       if (fn !== undefined) {
