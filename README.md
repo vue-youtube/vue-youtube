@@ -2,15 +2,15 @@
 
 This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2/3 app.
 
-## 🎉 Version 0.0.1 + 0.0.2
+## Version 0.0.3
 
-- Support for new events of the YouTube Iframe API, see [here](https://developers.google.com/youtube/iframe_api_reference#Events)
-- Vue 2 support via VueDemi
-- Composition support
-- Vite toolchain
-- and [more...](https://vue-youtube.github.io/docs/introduction/overview.html)
+### ⚠️ Breaking change
 
-## 🧪 Upcoming changes in version 0.0.3
+This version introduces a **breaking** change to eventually support Nuxt v3. You now need to **manually** register
+the manager. Please consult the usage guide [here](#register-the-manager) or the docs
+[here](https://vue-youtube.github.io/docs/usage/manager.html).
+
+### 🎉 New features
 
 - Register the manager via `createManager()` and `app.use()`
 - Event callbacks, like `onReady` or `onError`, will be able to accept multiple user provided callback functions
@@ -31,6 +31,17 @@ yarn add @vue-youtube/core
 
 ```shell
 pnpm install @vue-youtube/core
+```
+
+### Register the manager
+
+```ts
+import { createManager } from '@vue-youtube/core';
+import { createApp } from 'vue';
+
+import app from './app.vue';
+
+createApp(app).use(createManager()).mount('#app');
 ```
 
 ### Composable usage
