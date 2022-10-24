@@ -13,7 +13,7 @@ the manager. Please consult the usage guide [here](#register-the-manager) or the
 ### 🎉 New features
 
 - Register the manager via `createManager()` and `app.use()`
-- Event callbacks, like `onReady` or `onError`, will be able to accept multiple user provided callback functions
+- Event callbacks, like `onReady` or `onError`, are able to accept multiple user provided callback functions
 
 ## Usage
 
