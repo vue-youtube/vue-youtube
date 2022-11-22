@@ -1,6 +1,6 @@
 {
   "name": "@vue-youtube/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Integrate YouTube Iframe Player into Vue 2/3 applications",
   "author": "Techassi <git@techassi.dev>",
   "keywords": [
@@ -29,13 +29,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "module": "./dist/index.mjs",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "sideEffects": false,
   "bugs": {
     "url": "https://github.com/vue-youtube/vue-youtube/issues"
