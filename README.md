@@ -11,6 +11,11 @@ Version `0.0.4` fixes the wrong ESM and CommonJS references in the `package.json
 pnpm install @vue-youtube/core@0.0.4
 ```
 
+## Upcoming changes
+
+- Ability to pass an array of template refs to the `usePlayer` composable
+- Nuxt v3 support
+
 ## Usage
 
 For a detailed usage guide, check out the official [docs](https://vue-youtube.github.io/docs/).
