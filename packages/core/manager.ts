@@ -45,7 +45,7 @@ export interface ManagerOptions {
  * do so either when `Manager.load()` is called or when the `usePlayer()` composable is used and `autoLoad` is set to
  * `true`.
  * 
- * @see https://vue-youtube.github.io/docs/usage/manager.html#options
+ * @see https://vue-youtube.github.io/docs/usage/manager.html#deferloading
  */
 export interface DeferLoadingOption {
   autoLoad?: boolean;
@@ -126,8 +126,8 @@ export const createManager = (options?: ManagerOptions) => {
     },
 
     load() {
-      // Just return when the scripts were already loaded and this the factory
-      // isn't undefined
+      // Just return when the scripts were already loaded and the factory isn't
+      // undefined
       if (this._state.factory !== undefined)
         return;
 
