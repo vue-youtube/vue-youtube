@@ -1,4 +1,4 @@
 packages:
   - 'packages/*'
   - '!playgrounds/*'
-  - '!packages/nuxt/**'
+  # - '!packages/nuxt/**'
