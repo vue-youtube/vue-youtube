@@ -17,6 +17,7 @@ declare global {
 export interface ManagerState {
   backlog: Map<string, RegisterFunction>;
   players: Map<string, RegisterFunction>;
+  options: ManagerOptions;
   counter: number;
   factory: any;
 }
@@ -24,10 +25,31 @@ export interface ManagerState {
 export interface Manager {
   install(app: App): void;
   register(target: HTMLElement, cb: RegisterFunction): void;
+  load(): void;
 
-  state: ManagerState;
-
+  _state: ManagerState;
   _insert(): void;
+}
+
+/**
+ * Possible options which can be provided via the `createManager` function.
+ * 
+ * @see https://vue-youtube.github.io/docs/usage/manager.html#options
+ */
+export interface ManagerOptions {
+  deferLoading?: DeferLoadingOption;
+}
+
+/**
+ * When `deferLoading` is enabled, the manager will not load and insert required scripts into the page. Instead, it will
+ * do so either when `Manager.load()` is called or when the `usePlayer()` composable is used and `autoLoad` is set to
+ * `true`.
+ * 
+ * @see https://vue-youtube.github.io/docs/usage/manager.html#deferloading
+ */
+export interface DeferLoadingOption {
+  autoLoad?: boolean;
+  enabled: boolean;
 }
 
 export const injectManager = () => {
@@ -46,10 +68,18 @@ export const injectManager = () => {
  * @see https://vue-youtube.github.io/docs/usage/manager.html
  * @returns Manager
  */
-export const createManager = () => {
+export const createManager = (options?: ManagerOptions) => {
+  const managerOptions = options || {
+    deferLoading: {
+      enabled: false,
+      autoLoad: false,
+    },
+  };
+
   const state: ManagerState = {
     backlog: new Map<string, RegisterFunction>(),
     players: new Map<string, RegisterFunction>(),
+    options: managerOptions,
     factory: undefined,
     counter: 1,
   };
@@ -57,30 +87,51 @@ export const createManager = () => {
   const manager: Manager = {
     install(app) {
       app.provide(PROVIDE_KEY, manager);
-      this._insert();
+
+      // Only immediately insert the scripts when deferLoading is disabled
+      if (!this._state.options.deferLoading?.enabled)
+        this._insert();
     },
 
     register(target, cb) {
-      const targetId = target.id || `vue-youtube-${this.state.counter++}`;
+      const targetId = target.id || `vue-youtube-${this._state.counter++}`;
 
-      const fn = this.state.players.get(targetId);
+      const fn = this._state.players.get(targetId);
       if (fn !== undefined) {
         fn({
-          factory: this.state.factory,
+          factory: this._state.factory,
           id: targetId,
         });
         return;
       }
 
-      if (this.state.factory !== undefined) {
+      if (this._state.factory === undefined) {
+        // This will add the registration to the backlog for when the factory is
+        // not available because deferLoading is enabled.
+        this._state.backlog.set(targetId, cb);
+
+        // Only auto insert if the following conditions are met:
+        //
+        // 1. The factory is undefined
+        // 2. deferLoading is enabled
+        // 3. autoLoad is enabled
+        if (this._state.options.deferLoading?.enabled && this._state.options.deferLoading.autoLoad)
+          this._insert();
+      } else {
         cb({
-          factory: this.state.factory,
+          factory: this._state.factory,
           id: targetId,
         });
-        return;
       }
+    },
 
-      this.state.backlog.set(targetId, cb);
+    load() {
+      // Just return when the scripts were already loaded and the factory isn't
+      // undefined
+      if (this._state.factory !== undefined)
+        return;
+
+      this._insert();
     },
 
     _insert() {
@@ -91,20 +142,20 @@ export const createManager = () => {
       firstTag.parentNode?.insertBefore(tag, firstTag);
 
       window.onYouTubeIframeAPIReady = () => {
-        this.state.factory = window.YT;
+        this._state.factory = window.YT;
 
-        for (const [id, cb] of this.state.backlog.entries()) {
-          this.state.backlog.delete(id);
-          this.state.players.set(id, cb);
+        for (const [id, cb] of this._state.backlog.entries()) {
+          this._state.backlog.delete(id);
+          this._state.players.set(id, cb);
           cb({
-            factory: this.state.factory,
+            factory: this._state.factory,
             id,
           });
         }
       };
     },
 
-    state,
+    _state: state,
   };
 
   return manager;

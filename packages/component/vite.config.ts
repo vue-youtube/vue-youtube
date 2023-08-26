@@ -1,4 +1,4 @@
-import { basename, dirname, join, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -20,17 +20,12 @@ export default defineConfig({
   },
   plugins: [
     dts({
+      exclude: ['node_modules', '*.config.ts'],
       tsconfigPath: '../../tsconfig.json',
-      exclude: 'node_modules',
       staticImport: true,
+      rollupTypes: true,
       outDir: 'dist',
       include: '.',
-      beforeWriteFile: (path: string, content: string) => {
-        return {
-          filePath: join(dirname(path).replace('src', ''), basename(path)),
-          content,
-        };
-      },
     }),
   ],
   resolve: {
