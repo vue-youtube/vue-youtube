@@ -20,10 +20,10 @@ export default defineConfig({
   },
   plugins: [
     dts({
-      tsConfigFilePath: '../../tsconfig.json',
+      tsconfigPath: '../../tsconfig.json',
       exclude: 'node_modules',
       staticImport: true,
-      outputDir: 'dist',
+      outDir: 'dist',
       include: '.',
       beforeWriteFile: (path: string, content: string) => {
         return {
