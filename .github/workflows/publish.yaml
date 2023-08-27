@@ -1,8 +1,9 @@
-name: publish-package
+name: Publish Package
 on:
   push:
     tags:
       - v*
+
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
