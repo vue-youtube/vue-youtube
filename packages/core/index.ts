@@ -11,20 +11,13 @@ import type {
   ErrorCallback,
   ReadyCallback,
   PlayerOptions,
-  PlayerVars,
   MaybeRef,
   AnyEvent,
   Player,
 } from '@vue-youtube/shared';
 
+import { withConfigDefaults, type UsePlayerOptions } from './options';
 import { injectManager } from './manager';
-
-export interface Options {
-  height?: number | string;
-  width?: number | string;
-  playerVars?: PlayerVars;
-  cookie?: boolean;
-}
 
 /**
  * Initialize a reactive YouTube player
@@ -34,14 +27,14 @@ export interface Options {
  * @param element Template ref to the target element
  * @param options Player options
  */
-export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Options = {}) => {
+export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Partial<UsePlayerOptions> = {}) => {
   // Options
   const {
-    playerVars = {},
-    cookie = true,
-    width = 1280,
-    height = 720,
-  } = options;
+    playerVars,
+    cookie,
+    height,
+    width,
+  } = withConfigDefaults(options);
 
   const host = cookie ? HOST_COOKIE : HOST_NO_COOKIE;
   const manager = injectManager();
@@ -252,5 +245,7 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
 };
 
 export type UsePlayerReturn = ReturnType<typeof usePlayer>;
+
 export * from '@vue-youtube/shared';
 export * from './manager';
+export * from './options';
