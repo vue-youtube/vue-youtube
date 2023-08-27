@@ -34,7 +34,7 @@ export interface Manager {
 /**
  * Possible options which can be provided via the `createManager` function.
  * 
- * @see https://vue-youtube.github.io/docs/usage/manager.html#options
+ * @see https://vue-youtube.github.io/docs/usage/manager#options
  */
 export interface ManagerOptions {
   deferLoading?: DeferLoadingOption;
@@ -45,7 +45,7 @@ export interface ManagerOptions {
  * do so either when `Manager.load()` is called or when the `usePlayer()` composable is used and `autoLoad` is set to
  * `true`.
  * 
- * @see https://vue-youtube.github.io/docs/usage/manager.html#deferloading
+ * @see https://vue-youtube.github.io/docs/usage/manager#deferloading
  */
 export interface DeferLoadingOption {
   autoLoad?: boolean;
@@ -65,7 +65,7 @@ export const injectManager = () => {
  * Create a YouTube Iframe player manager. The manager provides a `install` method which gets called
  * by Vue's `app.use()`.
  * 
- * @see https://vue-youtube.github.io/docs/usage/manager.html
+ * @see https://vue-youtube.github.io/docs/usage/manager
  * @returns Manager
  */
 export const createManager = (options?: ManagerOptions) => {

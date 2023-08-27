@@ -42,6 +42,7 @@ export interface PlayerVars {
   list?: string | undefined;
   listType?: ListType | undefined;
   loop?: LoopOption | undefined;
+
   /**
    * The `modestbranding` parameter is deprecated and will have no effect. To align with YouTube's branding
    * requirements, the player now determines the appropriate branding treatment based on a combination of factors,
