@@ -1,14 +1,15 @@
 # VueYoutube
 
-This plugin makes it easy to integrate the YouTube Iframe Player into your Vue 2/3 app.
+This plugin easily integrates the YouTube Iframe Player into your Vue 2/3 app.
 
-## Version 0.0.4
+## Version 0.0.5
 
-Version `0.0.4` fixes the wrong ESM and CommonJS references in the `package.json` files of the packages `core`,
-`component` and `shared`.
+Version `0.0.5` adds the option to defer loading required scripts using the new option `deferLoading` when creating the
+manager with `createManager`. See [here](https://vue-youtube.github.io/docs/usage/manager#deferloading) for more
+information.
 
 ```shell
-pnpm install @vue-youtube/core@0.0.4
+pnpm install @vue-youtube/core@0.0.5
 ```
 
 ## Upcoming changes
@@ -76,7 +77,7 @@ onReady((event) => {
 
 ### Component usage
 
-To use the component install the following packages:
+To use the component, install the following packages:
 
 ```
 npm install @vue-youtube/core @vue-youtube/component
@@ -105,4 +106,4 @@ Migrating from `@techassi/vue-youtube-iframe` should be a drop-in replacement. A
 
 ## Contributing
 
-If you want to contribute a cool new feature just open a PR and I will be happy to look into it!
+If you want to contribute a cool new feature, open a PR, and I will gladly look into it!

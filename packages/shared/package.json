@@ -1,6 +1,6 @@
 {
   "name": "@vue-youtube/shared",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Shared code for VueYoutube",
   "author": "Techassi <git@techassi.dev>",
   "keywords": [
@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
   "peerDependencies": {
-    "@vue/composition-api": "^1.1.0",
+    "@vue/composition-api": "^1.7.2",
     "vue": "^2.7.0 || >=3.0.0"
   },
   "peerDependenciesMeta": {
