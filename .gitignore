@@ -5,3 +5,11 @@ dist-ssr
 *.local
 .secrets
 PUBLISH.md
+
+# Nuxt
+.nuxt
+.output
+.data
+.vercel_build_output
+.build-*
+.netlify

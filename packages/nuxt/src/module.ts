@@ -2,13 +2,14 @@ import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit';
 
 export default defineNuxtModule({
   meta: {
-    name: '@vue-youtube/nuxt',
     configKey: 'vueYoutube',
+    name: 'vue-youtube',
   },
-  async setup() {
+  defaults: {},
+  setup() {
     const resolver = createResolver(import.meta.url);
 
-    // nuxt.options.build.transpile.push(resolver.resolve('./runtime'));
+    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugin.client'));
   },
 });

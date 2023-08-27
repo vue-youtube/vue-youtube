@@ -12,6 +12,8 @@
     "import/named": "off"
   },
   "ignorePatterns": [
-    "packages/**/dist"
+    "packages/**/dist",
+    "node_modules",
+    ".nuxt"
   ]
 }
