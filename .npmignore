@@ -5,6 +5,7 @@ node_modules/
 .eslintignore
 .eslintrc
 vite.config.js
+vite.config.ts
 tsconfig.json
 
 # local env files

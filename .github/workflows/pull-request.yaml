@@ -8,21 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2.4.0
         with:
           version: latest
       - name: Install nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Lint changes
         run: pnpm -r lint
 
@@ -43,16 +43,16 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.4
+        uses: pnpm/action-setup@v2.4.0
         with:
           version: latest
       - name: Install nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.8.1
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build changes
         run: pnpm -r build
