@@ -2,7 +2,11 @@
 
 This plugin easily integrates the YouTube Iframe Player into your Vue 2/3 app.
 
-## Version 0.0.5
+## Version 0.0.6 / 0.0.5
+
+Version `0.0.6` fixes various issues around wrong packaging. Now everything should work as expected.
+
+---
 
 Version `0.0.5` adds the option to defer loading required scripts using the new option `deferLoading` when creating the
 manager with `createManager`. See [here](https://vue-youtube.github.io/docs/usage/manager#deferloading) for more
