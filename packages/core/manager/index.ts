@@ -3,9 +3,7 @@ import type { App } from 'vue-demi';
 import { inject } from 'vue-demi';
 
 import { PROVIDE_KEY } from '@vue-youtube/shared';
-
-export type RegisterFunction = (data: RegisterFunctionReturn) => void;
-export type RegisterFunctionReturn = { factory: any; id: string };
+import type { ManagerOptions, ManagerState, RegisterFunction } from './types';
 
 declare global {
   interface Window {
@@ -14,42 +12,15 @@ declare global {
   }
 }
 
-export interface ManagerState {
-  backlog: Map<string, RegisterFunction>;
-  players: Map<string, RegisterFunction>;
-  options: ManagerOptions;
-  counter: number;
-  factory: any;
-}
-
 export interface Manager {
   install(app: App): void;
   register(target: HTMLElement, cb: RegisterFunction): void;
   load(): void;
 
-  _state: ManagerState;
+  _enqueue(targetId: string, cb: RegisterFunction): void;
   _insert(): void;
-}
 
-/**
- * Possible options which can be provided via the `createManager` function.
- * 
- * @see https://vue-youtube.github.io/docs/usage/manager#options
- */
-export interface ManagerOptions {
-  deferLoading?: DeferLoadingOption;
-}
-
-/**
- * When `deferLoading` is enabled, the manager will not load and insert required scripts into the page. Instead, it will
- * do so either when `Manager.load()` is called or when the `usePlayer()` composable is used and `autoLoad` is set to
- * `true`.
- * 
- * @see https://vue-youtube.github.io/docs/usage/manager#deferloading
- */
-export interface DeferLoadingOption {
-  autoLoad?: boolean;
-  enabled: boolean;
+  _state: ManagerState;
 }
 
 export const injectManager = () => {
@@ -107,8 +78,9 @@ export const createManager = (options?: ManagerOptions) => {
 
       if (this._state.factory === undefined) {
         // This will add the registration to the backlog for when the factory is
-        // not available because deferLoading is enabled.
-        this._state.backlog.set(targetId, cb);
+        // not available because deferLoading is enabled or the player script was
+        // not inserted yet.
+        this._enqueue(targetId, cb);
 
         // Only auto insert if the following conditions are met:
         //
@@ -132,6 +104,10 @@ export const createManager = (options?: ManagerOptions) => {
         return;
 
       this._insert();
+    },
+
+    _enqueue(targetId, cb) {
+      this._state.backlog.set(targetId, cb);
     },
 
     _insert() {
