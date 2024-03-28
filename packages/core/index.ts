@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
+import { onMounted, onUnmounted, shallowRef, ref, unref, watch, MaybeRef } from 'vue-demi';
 import { HOST_COOKIE, HOST_NO_COOKIE, unrefElement, PlayerState } from '@vue-youtube/shared';
 
 import type {
@@ -11,7 +11,6 @@ import type {
   ErrorCallback,
   ReadyCallback,
   PlayerOptions,
-  MaybeRef,
   AnyEvent,
   Player,
 } from '@vue-youtube/shared';
@@ -22,12 +21,13 @@ import { injectManager } from './manager';
 /**
  * Initialize a reactive YouTube player
  * 
- * @see https://vue-youtube.github.io/docs/usage/composable
- * @param newVideoId Video ID as a string or a ref
+ * @param videoId Video ID as a string or a ref
  * @param element Template ref to the target element
  * @param options Player options
+ * 
+ * @see https://vue-youtube.github.io/docs/usage/composable
  */
-export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef, options: Partial<UsePlayerOptions> = {}) => {
+export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, options: Partial<UsePlayerOptions> = {}) => {
   // Options
   const {
     playerVars,
@@ -48,10 +48,10 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
   const readyCallback = new Array<ReadyCallback>();
 
   // Refs
-  const instance = shallowRef<Player>();
-  const videoId = ref(newVideoId);
-  const shuffle = ref(false);
-  const loop = ref(false);
+  const instanceRef = shallowRef<Player>();
+  const videoIdRef = ref(videoId);
+  const shuffleRef = ref(false);
+  const loopRef = ref(false);
 
   // Callback functions
 
@@ -128,12 +128,12 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleplay
    */
   const togglePlay = () => {
-    const state = instance.value?.getPlayerState();
+    const state = instanceRef.value?.getPlayerState();
     if (state && state === PlayerState.PLAYING) {
-      instance.value?.pauseVideo();
+      instanceRef.value?.pauseVideo();
       return;
     }
-    instance.value?.playVideo();
+    instanceRef.value?.playVideo();
   };
 
   /**
@@ -142,11 +142,11 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
    * @see https://vue-youtube.github.io/docs/usage/helpers#togglemute
    */
   const toggleMute = () => {
-    if (instance.value?.isMuted()) {
-      instance.value.unMute();
+    if (instanceRef.value?.isMuted()) {
+      instanceRef.value.unMute();
       return;
     }
-    instance.value?.mute();
+    instanceRef.value?.mute();
   };
 
   /**
@@ -155,14 +155,14 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleshuffle
    */
   const toggleShuffle = () => {
-    if (shuffle.value) {
-      instance.value?.setShuffle(false);
-      shuffle.value = false;
+    if (shuffleRef.value) {
+      instanceRef.value?.setShuffle(false);
+      shuffleRef.value = false;
       return;
     }
 
-    instance.value?.setShuffle(true);
-    shuffle.value = true;
+    instanceRef.value?.setShuffle(true);
+    shuffleRef.value = true;
   };
 
   /**
@@ -171,19 +171,19 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleloop
    */
   const toggleLoop = () => {
-    if (loop.value) {
-      instance.value?.setLoop(false);
-      loop.value = false;
+    if (loopRef.value) {
+      instanceRef.value?.setLoop(false);
+      loopRef.value = false;
       return;
     }
 
-    instance.value?.setLoop(true);
-    loop.value = true;
+    instanceRef.value?.setLoop(true);
+    loopRef.value = true;
   };
 
   // Watchers
-  const stop = watch(videoId, (newVideoId) => {
-    instance.value?.loadVideoById(newVideoId);
+  const stop = watch(videoIdRef, (newVideoId) => {
+    instanceRef.value?.loadVideoById(newVideoId);
   });
 
   onMounted(() => {
@@ -194,8 +194,8 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
 
     manager.register(target, ({ factory, id }) => {
       target.id = id;
-      instance.value = new factory.Player(id, {
-        videoId: unref(videoId),
+      instanceRef.value = new factory.Player(id, {
+        videoId: unref(videoIdRef),
         playerVars,
         height,
         width,
@@ -225,12 +225,12 @@ export const usePlayer = (newVideoId: MaybeRef<string>, element: MaybeElementRef
   });
 
   onUnmounted(() => {
-    instance.value?.destroy();
+    instanceRef.value?.destroy();
     stop();
   });
 
   return {
-    instance,
+    instance: instanceRef,
     togglePlay,
     toggleMute,
     toggleLoop,
