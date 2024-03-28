@@ -1,5 +1,7 @@
-import { onMounted, onUnmounted, shallowRef, ref, unref, watch, MaybeRef } from 'vue-demi';
+import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
 import { HOST_COOKIE, HOST_NO_COOKIE, unrefElement, PlayerState } from '@vue-youtube/shared';
+
+import type { MaybeRef } from 'vue-demi';
 
 import type {
   PlaybackQualityChangeCallback,
