@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { App } from 'vue';
-import { inject } from 'vue';
+import type { App } from 'vue-demi';
+import { inject } from 'vue-demi';
 
 import { PROVIDE_KEY } from '@vue-youtube/shared';
 import type { ManagerOptions, ManagerState, RegisterFunction } from './types';
