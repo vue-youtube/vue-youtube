@@ -31,7 +31,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v4.0.2
         with:
-          node-version: 20
+          node-version: 22.8.0
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
 
