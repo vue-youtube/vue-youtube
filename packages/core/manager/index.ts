@@ -32,6 +32,12 @@ export const injectManager = () => {
   return manager;
 };
 
+export const withDefaultManagerOptions = (options: Partial<ManagerOptions>): ManagerOptions => {
+  return {
+    deferLoading: options.deferLoading ?? { enabled: false, autoLoad: false },
+  };
+};
+
 /**
  * Create a YouTube Iframe player manager. The manager provides a `install` method which gets called
  * by Vue's `app.use()`.
@@ -39,13 +45,8 @@ export const injectManager = () => {
  * @see https://vue-youtube.github.io/docs/usage/manager
  * @returns Manager
  */
-export const createManager = (options?: ManagerOptions) => {
-  const managerOptions = options || {
-    deferLoading: {
-      enabled: false,
-      autoLoad: false,
-    },
-  };
+export const createManager = (options: Partial<ManagerOptions> = {}) => {
+  const managerOptions = withDefaultManagerOptions(options);
 
   const state: ManagerState = {
     backlog: new Map<string, RegisterFunction>(),

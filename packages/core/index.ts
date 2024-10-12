@@ -17,7 +17,7 @@ import type {
   Player,
 } from '@vue-youtube/shared';
 
-import { withConfigDefaults, type UsePlayerOptions } from './options';
+import { withDefaultPlayerOptions, type UsePlayerOptions } from './options';
 import { injectManager } from './manager';
 
 /**
@@ -30,16 +30,18 @@ import { injectManager } from './manager';
  * @see https://vue-youtube.github.io/docs/usage/composable
  */
 export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, options: Partial<UsePlayerOptions> = {}) => {
+  const manager = injectManager();
+
   // Options
   const {
+    onVideoIdChange,
     playerVars,
     cookie,
     height,
     width,
-  } = withConfigDefaults(options);
+  } = withDefaultPlayerOptions(options);
 
   const host = cookie ? HOST_COOKIE : HOST_NO_COOKIE;
-  const manager = injectManager();
 
   // Callbacks
   const playbackQualityChangeCallback = new Array<PlaybackQualityChangeCallback>();
@@ -56,7 +58,6 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
   const loopRef = ref(false);
 
   // Callback functions
-
   const triggerCallbacks = <T extends AnyEvent>(event: T, cbs: Array<PlayerEventCallback<T>>) => {
     for (const cb of cbs)
       cb(event);
@@ -184,8 +185,11 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
   };
 
   // Watchers
-  const stop = watch(videoIdRef, (newVideoId) => {
-    instanceRef.value?.loadVideoById(newVideoId);
+  const stopVideoIdWatcher = watch(videoIdRef, (newVideoId) => {
+    if (onVideoIdChange === 'play')
+      instanceRef.value?.loadVideoById(newVideoId);
+    else
+      instanceRef.value?.cueVideoById(videoIdRef.value);
   });
 
   onMounted(() => {
@@ -228,7 +232,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   onUnmounted(() => {
     instanceRef.value?.destroy();
-    stop();
+    stopVideoIdWatcher();
   });
 
   return {

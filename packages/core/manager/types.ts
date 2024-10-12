@@ -8,7 +8,7 @@ export type RegisterFunctionReturn = { factory: any; id: string };
  * @see https://vue-youtube.github.io/docs/usage/manager#options
  */
 export interface ManagerOptions {
-  deferLoading?: DeferLoadingOption;
+  deferLoading: DeferLoadingOption;
 }
 
 /**

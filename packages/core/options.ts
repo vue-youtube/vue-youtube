@@ -30,13 +30,22 @@ export interface UsePlayerOptions {
   playerVars: PlayerVars;
 
   /**
-   * When this option is `true` the host `https://www.youtube.com` is used, otherwise `https://www.youtube-nocookie.com`
+   * When this option is `true` the host `https://www.youtube.com` is used, otherwise `https://www.youtube-nocookie.com`.
    */
   cookie: boolean;
+
+  /**
+   * When this option is `play` the player will automatically start playing when the video ID changes, defaults to `play`.
+   * It is also possible to cue the video instead by setting this option to `cue`.
+   */
+  onVideoIdChange: OnVideoIdChange;
 }
 
-export const withConfigDefaults = (options: Partial<UsePlayerOptions>): UsePlayerOptions => {
+export type OnVideoIdChange = 'play' | 'cue';
+
+export const withDefaultPlayerOptions = (options: Partial<UsePlayerOptions>): UsePlayerOptions => {
   return {
+    onVideoIdChange: options.onVideoIdChange ?? 'play',
     playerVars: options.playerVars ?? {},
     cookie: options.cookie ?? true,
     height: options.height ?? 720,
