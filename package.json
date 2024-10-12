@@ -27,8 +27,5 @@
     "vue": "^3.3.7",
     "vue-tsc": "^1.8.22",
     "vue2": "npm:vue@^2.7.15"
-  },
-  "workspaces": [
-    "./packages/*"
-  ]
+  }
 }
