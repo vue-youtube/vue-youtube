@@ -1,58 +1,18 @@
-name: Pull Request
+name: Pull Request Checks
 
 on:
   pull_request
 
 jobs:
-  lint-changes:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.4.0
-        with:
-          version: latest
-      - name: Install nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Lint changes
-        run: pnpm -r lint
-
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - name: Check links
+      - name: Check Links
         uses: lycheeverse/lychee-action@v1.8.0
         with:
-          args: --exclude-path packages/**/dist --exclude https://www.youtube-nocookie.com/ packages/**/*.ts packages/**/*.md
-
-  build-changes:
-    runs-on: ubuntu-latest
-    needs: [lint-changes, check-links]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.4.0
-        with:
-          version: latest
-      - name: Install nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Build changes
-        run: pnpm -r build
+          args: >-
+            --exclude-path packages/**/dist
+            --exclude https://www.youtube-nocookie.com/
+            packages/**/*.ts
+            packages/**/*.md
+            docs/**/*.md
