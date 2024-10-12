@@ -43,7 +43,7 @@
   "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
   "peerDependencies": {
     "@vue/composition-api": "^1.7.2",
-    "vue": "^2.7.0 || >=3.0.0"
+    "vue": "^2.7.0 || >=3.3.7"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
@@ -51,7 +51,7 @@
     }
   },
   "devDependencies": {
-    "vue": "^3.0.0"
+    "vue": "^3.3.7"
   },
   "dependencies": {
     "vue-demi": "latest"
