@@ -1,16 +1,16 @@
-name: Publish Package Dry Run
+---
+name: publish-dry-run
+
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  publish-npm:
+  publish-on-npm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4.2.1
-        with:
-          fetch-depth: 0
 
       - name: Install PNPM
         uses: pnpm/action-setup@v4.0.0

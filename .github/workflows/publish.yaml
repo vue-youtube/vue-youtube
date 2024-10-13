@@ -1,4 +1,6 @@
+---
 name: Publish Package
+
 on:
   push:
     tags:
@@ -10,8 +12,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4.2.1
-        with:
-          fetch-depth: 0
 
       - name: Install PNPM
         uses: pnpm/action-setup@v4.0.0
@@ -27,12 +27,6 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint Workspace Packages
-        run: pnpm -r lint
 
       - name: Build Workspace Packages
         if: ${{ success() }}
