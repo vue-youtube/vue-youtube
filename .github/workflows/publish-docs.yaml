@@ -1,3 +1,4 @@
+---
 name: publish-docs
 
 # Once the `preview` input is available, this can also run on PR when docs are
@@ -11,7 +12,6 @@ on:
       - 'main'
     paths:
       - '.github/workflows/publish-docs.yaml'
-      - '.vitepress/**'
       - 'docs/**'
 
 jobs:
@@ -20,8 +20,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4.2.1
-        with:
-          fetch-depth: 0
 
       - name: Install PNPM
         uses: pnpm/action-setup@v4.0.0
@@ -45,7 +43,7 @@ jobs:
         if: ${{ success() }}
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: .vitepress/dist
+          path: docs/.vitepress/dist
 
   deploy-docs:
     runs-on: ubuntu-latest

@@ -1,8 +1,8 @@
 node_modules
 
 # Vitepress
-.vitepress/cache
-.vitepress/dist
+docs/.vitepress/cache
+docs/.vitepress/dist
 
 # Bundled code
 packages/**/dist*

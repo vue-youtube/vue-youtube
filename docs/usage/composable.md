@@ -103,7 +103,7 @@ export interface PlayerEvent {
 
 *See [Reference](https://developers.google.com/youtube/iframe_api_reference#onStateChange)*
 
-> This event fires whenever the player's state changes. The data property of the event object that the API passes to 
+> This event fires whenever the player's state changes. The data property of the event object that the API passes to
 > your event listener function will specify an integer that corresponds to the new player state.
 
 ```ts
@@ -341,8 +341,8 @@ usePlayer('dQw4w9WgXcQ', player, {
 ::: details Show Type Declarations
 ```ts
 export function usePlayer(
-  newVideoId: MaybeRef<string>, 
-  element: MaybeElementRef, 
+  newVideoId: MaybeRef<string>,
+  element: MaybeElementRef,
   options: Options = {}
 ) : {
   instance: ShallowRef<Player | undefined>;

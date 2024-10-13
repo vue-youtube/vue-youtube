@@ -1,8 +1,8 @@
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import { YoutubeIframe } from '../../packages/component';
-import { createManager } from '../../packages/core';
+import { YoutubeIframe } from '@vue-youtube/component';
+import { createManager } from '@vue-youtube/core';
 
 import './style.css'
 
