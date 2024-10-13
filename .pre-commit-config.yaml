@@ -1,0 +1,31 @@
+---
+default_language_version:
+  node: system
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # 4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+      - id: detect-private-key
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: 81e9f98ffd059efe8aa9c1b1a42e5cce61b640c6 # 1.35.1
+    hooks:
+      - id: yamllint
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: 62dc61a45fc95efe8c800af7a557ab0b9165d63b # 1.7.1
+    hooks:
+      - id: actionlint
+
+  - repo: local
+    hooks:
+      - id: pnpm-lint
+        name: pnpm-lint
+        entry: pnpm lint
+        language: system
+        pass_filenames: false
