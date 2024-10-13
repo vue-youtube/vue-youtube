@@ -34,6 +34,21 @@ jobs:
         with:
           python-version: 3.12
 
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: latest
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v4.0.2
+        with:
+          node-version: 22.8.0
+          registry-url: https://registry.npmjs.org/
+          cache: "pnpm"
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
       - uses: pre-commit/action@v3.0.1
         with:
           extra_args: >-
