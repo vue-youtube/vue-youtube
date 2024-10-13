@@ -56,6 +56,9 @@ importers:
 
   docs:
     devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.7.5
       '@vue-youtube/component':
         specifier: workspace:*
         version: link:../packages/component

@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { resolve } from 'node:path';
 
 import sidebar from './sidebar';
 import nav from './nav';
@@ -32,6 +33,15 @@ export default defineConfig({
   },
   sitemap: {
     hostname: 'https://vue-youtube.github.io/docs/'
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '@vue-youtube/component': resolve('../packages/component/src/index.ts'),
+        '@vue-youtube/shared': resolve('../packages/shared/src/index.ts'),
+        '@vue-youtube/core': resolve('../packages/core/src/index.ts'),
+      },
+    },
   },
   // mpa: true,
   head: [['link', { rel: 'icon', type: 'image/x-icon', href: '/docs/favicon.ico' }]],
