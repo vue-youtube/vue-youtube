@@ -1,45 +1,39 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "useDefineForClassFields": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "strict": true,
-        "jsx": "preserve",
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "esModuleInterop": true,
-        "lib": [
-            "esnext",
-            "dom"
-        ],
-        "paths": {
-            "@vue-youtube/component": [
-                "./packages/component/index.ts"
-            ],
-            "@vue-youtube/shared": [
-                "./packages/shared/index.ts"
-            ],
-            "@vue-youtube/core": [
-                "./packages/core/index.ts"
-            ],
-            "@vue-youtube/component/*": [
-                "./packages/component/*"
-            ],
-            "@vue-youtube/shared/*": [
-                "./packages/shared/*"
-            ],
-            "@vue-youtube/core/*": [
-                "./packages/core/*"
-            ],
-        }
-    },
-    "include": [
-        "packages",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "lib": [
+      "esnext",
+      "dom"
     ],
-    "exclude": [
-        "packages/nuxt",
-        "node_modules",
-        "**/dist",
-    ]
+    "paths": {
+      "@vue-youtube/component": [
+        "./packages/component/src/index.ts"
+      ],
+      "@vue-youtube/core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@vue-youtube/shared": [
+        "./packages/shared/src/index.ts"
+      ],
+    }
+  },
+  "include": [
+    "packages",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+  ]
 }

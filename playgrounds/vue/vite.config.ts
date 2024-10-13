@@ -6,12 +6,9 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@vue-youtube/component': resolve('../../packages/component/index.ts'),
-      '@vue-youtube/shared': resolve('../../packages/shared/index.ts'),
-      '@vue-youtube/core': resolve('../../packages/core/index.ts'),
+      '@vue-youtube/component': resolve('../../packages/component/src/index.ts'),
+      '@vue-youtube/shared': resolve('../../packages/shared/src/index.ts'),
+      '@vue-youtube/core': resolve('../../packages/core/src/index.ts'),
     },
-  },
-  optimizeDeps: {
-    exclude: ['vue-demi'],
   },
 });
