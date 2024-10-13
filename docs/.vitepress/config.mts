@@ -31,6 +31,7 @@ export default defineConfig({
     },
     outline: [2, 3]
   },
+  base: '/vue-youtube/',
   sitemap: {
     hostname: 'https://vue-youtube.github.io/docs/'
   },
