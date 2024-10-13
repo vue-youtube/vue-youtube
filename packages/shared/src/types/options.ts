@@ -47,7 +47,7 @@ export interface PlayerVars {
    * The `modestbranding` parameter is deprecated and will have no effect. To align with YouTube's branding
    * requirements, the player now determines the appropriate branding treatment based on a combination of factors,
    * including player size, other API parameters (e.g. controls), and additional signals.
-   * 
+   *
    * @see https://developers.google.com/youtube/player_parameters#august-15,-2023
    * @deprecated
    */
@@ -58,5 +58,12 @@ export interface PlayerVars {
   playsinline?: PlaysInlineOption | undefined;
   rel?: RelatedVideosOption | undefined;
   showinfo?: ShowInfoOption | undefined;
+
+  /**
+   * This parameter causes the player to begin playing the video at the given number of seconds from the start of the
+   * video. The parameter value is a positive integer.
+   *
+   * @see https://developers.google.com/youtube/player_parameters#start
+   */
   start?: number | undefined;
 }

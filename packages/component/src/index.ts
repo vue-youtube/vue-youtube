@@ -1,8 +1,8 @@
-import { defineComponent, h, ref, toRefs } from 'vue-demi';
+import { defineComponent, h, ref, toRefs } from 'vue';
 import { usePlayer } from '@vue-youtube/core';
 
 import type { PlayerVars } from '@vue-youtube/shared';
-import type { PropType } from 'vue-demi';
+import type { PropType } from 'vue';
 
 export const YoutubeIframe = defineComponent({
   name: 'YoutubeIframe',

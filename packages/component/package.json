@@ -2,57 +2,43 @@
   "name": "@vue-youtube/component",
   "version": "0.0.6",
   "description": "Component for VueYoutube",
-  "author": "Techassi <git@techassi.dev>",
   "keywords": [
     "vue",
     "youtube",
     "iframe",
-    "embed",
-    "api",
     "youtube iframe api",
     "vue-youtube-iframe"
   ],
   "license": "MIT",
-  "type": "module",
-  "scripts": {
-    "build": "vue-tsc --noEmit && vite build",
-    "lint": "eslint --ext .js,.vue,.ts ."
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vue-youtube/vue-youtube.git",
     "directory": "packages/component"
   },
+  "bugs": {
+    "url": "https://github.com/vue-youtube/vue-youtube/issues"
+  },
+  "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
+  "author": "Techassi <git@techassi.dev>",
+  "type": "module",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
     }
   },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "sideEffects": false,
-  "bugs": {
-    "url": "https://github.com/vue-youtube/vue-youtube/issues"
-  },
-  "homepage": "https://github.com/vue-youtube/vue-youtube#readme",
-  "peerDependencies": {
-    "@vue/composition-api": "^1.7.2",
-    "vue": "^2.7.0 || >=3.3.7"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "scripts": {
+    "build": "tsup src/index.ts"
   },
   "dependencies": {
-    "@vue-youtube/shared": "workspace:*",
     "@vue-youtube/core": "workspace:*",
-    "vue-demi": "*"
+    "@vue-youtube/shared": "workspace:*",
+    "vue": "catalog:"
   }
 }

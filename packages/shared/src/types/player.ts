@@ -7,7 +7,7 @@ import type { ListType } from './options';
 export interface Player {
   /**
    * cueVideoById queues a video by ID
-   * 
+   *
    * @param videoId YouTube video ID
    * @param startSeconds Time in seconds from which the video should start playing
    * @param suggestedQuality Suggested video player quality
@@ -23,7 +23,7 @@ export interface Player {
 
   /**
    * loadVideoById loads a video by ID
-   * 
+   *
    * @param videoId YouTube video ID
    * @param startSeconds Time in seconds from which the video should start playing
    * @param suggestedQuality Suggested video player quality
@@ -39,7 +39,7 @@ export interface Player {
 
   /**
    * cueVideoByUrl queues a video by URL
-   * 
+   *
    * @param mediaContentUrl Fully qualified player URL
    * @param startSeconds Time in seconds from which the video should start playing
    * @param suggestedQuality Suggested video player quality
@@ -55,7 +55,7 @@ export interface Player {
 
   /**
    * loadVideoByUrl loads a video by URL
-   * 
+   *
    * @param mediaContentUrl Fully qualified player URL
    * @param startSeconds Time in seconds from which the video should start playing
    * @param suggestedQuality Suggested video player quality
@@ -71,7 +71,7 @@ export interface Player {
 
   /**
    * cuePlaylist queues one ore more videos by ID
-   * 
+   *
    * @param playlist Video ID(s) to play
    * @param index Start index of the playlist (default 0)
    * @param startSeconds Time in seconds from which the video should start playing
@@ -259,7 +259,7 @@ export interface Player {
   /**
    * setSphericalProperties sets the spherical video config object. The call will be No-Op for non-360 videos, and will
    * change the view port according to the input for 360 videos
-   * 
+   *
    * @param properties Spherical video config object
    */
   setSphericalProperties(properties: SphericalProperties): void;

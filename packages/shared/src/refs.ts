@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import type { MaybeRef, ComponentPublicInstance } from 'vue-demi';
-import { unref } from 'vue-demi';
+import type { MaybeRef, ComponentPublicInstance } from 'vue';
+import { unref } from 'vue';
 
 export type MaybeElementRef = MaybeRef<HTMLElement | ComponentPublicInstance | undefined | null>;
 

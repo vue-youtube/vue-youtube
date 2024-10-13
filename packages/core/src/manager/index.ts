@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { App } from 'vue-demi';
-import { inject } from 'vue-demi';
+import type { App } from 'vue';
+import { inject } from 'vue';
 
 import { PROVIDE_KEY } from '@vue-youtube/shared';
 import type { ManagerOptions, ManagerState, RegisterFunction } from './types';
@@ -35,7 +35,7 @@ export const injectManager = () => {
 /**
  * Create a YouTube Iframe player manager. The manager provides a `install` method which gets called
  * by Vue's `app.use()`.
- * 
+ *
  * @see https://vue-youtube.github.io/docs/usage/manager
  * @returns Manager
  */

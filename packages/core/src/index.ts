@@ -1,7 +1,7 @@
-import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue-demi';
+import { onMounted, onUnmounted, shallowRef, ref, unref, watch } from 'vue';
 import { HOST_COOKIE, HOST_NO_COOKIE, unrefElement, PlayerState } from '@vue-youtube/shared';
 
-import type { MaybeRef } from 'vue-demi';
+import type { MaybeRef } from 'vue';
 
 import type {
   PlaybackQualityChangeCallback,
@@ -22,11 +22,11 @@ import { injectManager } from './manager';
 
 /**
  * Initialize a reactive YouTube player
- * 
+ *
  * @param videoId Video ID as a string or a ref
  * @param element Template ref to the target element
  * @param options Player options
- * 
+ *
  * @see https://vue-youtube.github.io/docs/usage/composable
  */
 export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, options: Partial<UsePlayerOptions> = {}) => {
@@ -64,7 +64,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register callback function(s) which get executed when the playback quality changes
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onplaybackqualitychange
    * @param cb One ore more playback quality change callbacks
    */
@@ -74,7 +74,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register callback function(s) which get executed when the playback rate changes
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onplaybackratechange
    * @param cb One ore more playback rate change callbacks
    */
@@ -84,7 +84,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register callback function(s) which get executed when the player state changes
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onstatechange
    * @param cb One ore more player state change callbacks
    */
@@ -94,7 +94,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register callback function(s) which get executed when the API changes
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onapichange
    * @param cb One ore more API change callbacks
    */
@@ -104,7 +104,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register callback function(s) which get executed when an error is encountered
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onerror
    * @param cb One ore more error callbacks
    */
@@ -114,7 +114,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Register a callback function which gets executed when the player is ready
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/composable#onready
    * @param cb One ore more ready callbacks
    */
@@ -126,7 +126,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Play / pause the video
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleplay
    */
   const togglePlay = () => {
@@ -140,7 +140,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Mute / unmute the player
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/helpers#togglemute
    */
   const toggleMute = () => {
@@ -153,7 +153,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Toggle playlist shuffling
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleshuffle
    */
   const toggleShuffle = () => {
@@ -169,7 +169,7 @@ export const usePlayer = (videoId: MaybeRef<string>, element: MaybeElementRef, o
 
   /**
    * Toggle playlist looping.
-   * 
+   *
    * @see https://vue-youtube.github.io/docs/usage/helpers#toggleloop
    */
   const toggleLoop = () => {
