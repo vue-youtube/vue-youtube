@@ -5,8 +5,6 @@ name: publish-docs
 # changed.
 
 on:
-  # TODO: Remove before merge, only for testing during PR
-  pull_request:
   push:
     branches:
       - 'main'
