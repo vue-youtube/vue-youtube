@@ -1,6 +1,7 @@
 import { defineComponent, h, ref, toRefs } from 'vue';
 import { usePlayer } from '@vue-youtube/core';
 
+import type { OnVideoIdChange } from '@vue-youtube/core';
 import type { PlayerVars } from '@vue-youtube/shared';
 import type { PropType } from 'vue';
 
@@ -31,6 +32,10 @@ export const YoutubeIframe = defineComponent({
       type: Boolean as PropType<boolean>,
       default: true,
     },
+    onVideoIdChange: {
+      type: String as PropType<OnVideoIdChange>,
+      default: 'play',
+    },
   },
   emits: [
     'playback-quality-change',
@@ -55,6 +60,7 @@ export const YoutubeIframe = defineComponent({
       onError,
       onReady,
     } = usePlayer(videoId, target, {
+      onVideoIdChange: props.onVideoIdChange,
       playerVars: props.playerVars,
       height: props.height,
       cookie: props.cookie,
