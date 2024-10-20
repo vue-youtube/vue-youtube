@@ -1,7 +1,5 @@
 # Composable
 
-[player-param-reference]: https://developers.google.com/youtube/player_parameters#Parameters
-
 ## Usage
 
 ::: tip Hint
@@ -27,16 +25,34 @@ usePlayer('dQw4w9WgXcQ', player);
 ```
 
 <ClientOnly>
-  <YoutubeIframe video-id="dQw4w9WgXcQ" :height="400" />
+  <YoutubeIframe videoId="dQw4w9WgXcQ" :height="400" />
 </ClientOnly>
 
 ## Event Callbacks
 
-The composable function provides multiple hooks to handle events. **All import statements are removed for simplicity.**
+::: tip Notice
+Explicit imports in **all** following code snippets have been removed for brevity.
+:::
 
-### Provide multiple Callback Functions at once <Badge type="tip" text="Since 0.0.3" />
+The composable provides multiple hooks to handle events. Each hook can register one or more handlers
+at once.
 
-```ts
+::: code-group
+
+```ts [Single]
+const player = ref();
+const { onReady } = usePlayer('dQw4w9WgXcQ', player);
+
+onReady((event) => {
+  console.log('I will get triggered when the player is ready');
+});
+
+onReady((event) => {
+  console.log('You will see this message as well!');
+});
+```
+
+```ts [Multiple <Badge type="tip" text="Since 0.0.3" />]
 const player = ref();
 const { onReady } = usePlayer('dQw4w9WgXcQ', player);
 
@@ -50,20 +66,7 @@ onReady(
 );
 ```
 
-### Provide multiple Callback Functions separately
-
-```ts
-const player = ref();
-const { onReady } = usePlayer('dQw4w9WgXcQ', player);
-
-onReady((event) => {
-  console.log('I will get triggered when the player is ready');
-});
-
-onReady((event) => {
-  console.log('You will see this message as well!');
-});
-```
+:::
 
 ### onReady
 
@@ -314,96 +317,94 @@ Be careful when using `instance`. You could, for example, destroy the player ins
 recover the destroyed player.
 :::
 
-## Configuration
+## Helper Functions
 
-The `usePlayer` function has a optional third parameter to provide player options. The values prefixed with `//` are the
-default values.
+### togglePlay
 
-```ts
+The `togglePlay` function pauses / unpauses the video.
+
+```vue
+<script setup lang="ts">
 const player = ref();
-usePlayer('dQw4w9WgXcQ', player, {
-  playerVars: {}, // {}
-  cookie: false,  // true
-  width: 1920,    // 1280
-  height: 1080,   // 720
-});
+const { togglePlay } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="togglePlay">Pause / Unpause</button>
+</template>
 ```
 
-### Supported Options
+### toggleMute
 
-| Option       | Details                                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `playerVars` | Customize the player behavior, see [hereplayer-param-reference][player-param-reference] for reference.              |
-| `cookie`     | When this option is `true` the host `https://www.youtube.com` is used, otherwise `https://www.youtube-nocookie.com` |
-| `width`      | Set the width of the YouTube player. Number and string supported.                                                   |
-| `height`     | Set the height of the YouTube player. Number and string supported.                                                  |
+The `toggleMute` function mutes / unmutes the player.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleMute } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleMute">Mute / Unmute</button>
+</template>
+```
+
+### toggleLoop
+
+The `toggleLoop` function toggles playlist looping on / off.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleLoop } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleLoop">Loop / No loop</button>
+</template>
+```
+
+*See [Reference](https://developers.google.com/youtube/iframe_api_reference#setLoop)*
+
+### `toggleShuffle`
+
+The `toggleShuffle` function toggles playlist shuffling on / off.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleShuffle } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleShuffle">Shuffle / No shuffle</button>
+</template>
+```
+
+*See [Reference](https://developers.google.com/youtube/iframe_api_reference#setShuffle)*
+
+## Configuration
+
+The `usePlayer` function has a optional third parameter to provide player options. If not specified,
+the default values will be used.
 
 ::: details Show Type Declarations
 ```ts
-export function usePlayer(
-  newVideoId: MaybeRef<string>,
-  element: MaybeElementRef,
-  options: Options = {}
-) : {
-  instance: ShallowRef<Player | undefined>;
-  togglePlay: () => void;
-  toggleMute: () => void;
-  toggleLoop: () => void;
-  toggleShuffle: () => void;
-  onPlaybackQualityChange: (...cb: Array<PlaybackQualityChangeCallback>) => void;
-  onPlaybackRateChange: (...cb: Array<PlaybackRateChangeCallback>) => void;
-  onStateChange: (...cb: Array<PlayerStateChangeCallback>) => void;
-  onApiChange: (...cb: Array<APIChangeCallback>) => void;
-  onError: (...cb: Array<ErrorCallback>) => void;
-  onReady: (...cb: Array<ReadyCallback>) => void;
-}
 export interface Options {
-  height?: number | string;
-  width?: number | string;
-  playerVars?: PlayerVars;
-  cookie?: boolean;
-}
-export interface PlayerVars {
-  autohide?: AutohideOption | undefined;
-  autoplay?: AutoplayOption | undefined;
-  cc_load_policy?: CCLoadPolicyOption | undefined;
-  cc_lang_pref?: string | undefined;
-  color?: ProgressBarColor | undefined;
-  controls?: ControlsOption | undefined;
-  disablekb?: KeyboardOptions | undefined;
-  enablejsapi?: JSAPIOptions | undefined;
-  end?: number | undefined;
-  fs?: FullscreenOption | undefined;
-  hl?: string | undefined;
-  iv_load_policy?: IVPolicyOption | undefined;
-  list?: string | undefined;
-  listType?: ListType | undefined;
-  loop?: LoopOption | undefined;
-  modestbranding?: ModestBrandingOption | undefined;
-  mute?: MuteOption | undefined;
-  origin?: string | undefined;
-  playlist?: string | undefined;
-  playsinline?: PlaysInlineOption | undefined;
-  rel?: RelatedVideosOption | undefined;
-  showinfo?: ShowInfoOption | undefined;
-  start?: number | undefined;
+  height: number | string;
+  width: number | string;
+  playerVars: PlayerVars;
+  cookie: boolean;
+  onVideoIdChange: OnVideoIdChange;
 }
 ```
 :::
 
-### `playerVars` Reference <Badge type="warning" text="New" />
-
-::: info Info
-This section will soon feature a full reference. See [#7](https://github.com/vue-youtube/docs/issues/7) for more
-information on implementation progress.
-:::
-
-It is important to look up the official YouTube [player parameter reference][player-param-reference]. Some parameters
-might oppose unexpected requirements on the provided value. Invalid values might render the player inoperable.
-
-Such an example is the `start` parameter which is typed as a `number` in TS. In JavaScript (and thus also in Typescript)
-a `number` can be any *kind* of number, like integer or float. The parameter however expects integer values, otherwise
-the player won't start playing the video.
+Details on individual options can be viewed [here](./options.md).
 
 ## Examples
 
