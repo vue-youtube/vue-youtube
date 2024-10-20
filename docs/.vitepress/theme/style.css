@@ -1,0 +1,40 @@
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg,
+      #42B883 30%,
+      #35495E);
+  --vp-home-hero-image-background-image: linear-gradient(-45deg,
+      #35495E80 30%,
+      #42B88380);
+  --vp-home-hero-image-filter: blur(50px);
+
+  /* Link color */
+  --vp-c-brand: #41b782;
+
+  /* Start page primary CTA button */
+  --vp-button-brand-hover-border: #33a06f;
+  --vp-button-brand-hover-bg: #42d392;
+  --vp-button-brand-active-border: #33a06f;
+  --vp-button-brand-active-bg: #42d392;
+
+  --vp-button-brand-border: #36ea9a;
+  --vp-button-brand-bg: #41b782;
+}
+
+.VPHome .VPHero p.text {
+  font-size: 40px !important;
+  line-height: 48px !important;
+}
+
+details.details.custom-block summary {
+  cursor: pointer;
+}
+
+main iframe {
+  max-width: 100%;
+}
+
+/* Fix missing top margin */
+.vp-doc h4 {
+  margin-top: 10px;
+}

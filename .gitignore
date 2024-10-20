@@ -1,7 +1,15 @@
 node_modules
-.DS_Store
-dist
-dist-ssr
-*.local
-.secrets
+
+# Vitepress
+docs/.vitepress/cache
+docs/.vitepress/dist
+
+# Bundled code
+packages/**/dist*
+
+# Misc
+.eslintcache
 PUBLISH.md
+.DS_Store
+.secrets
+*.local

@@ -1,32 +1,38 @@
-name: Publish Package Dry Run
+---
+name: publish-dry-run
+
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  publish-npm:
+  publish-on-npm:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2.4.0
+      - name: Checkout Repository
+        uses: actions/checkout@v4.2.1
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4.0.0
         with:
           version: latest
-      - name: Install nodejs ${{ matrix.node-version }}
+
+      - name: Install NodeJS
         uses: actions/setup-node@v3.8.1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Lint library
+
+      - name: Lint Workspace Packages
         run: pnpm -r lint
-      - name: Build library
+
+      - name: Build Workspace Packages
         if: ${{ success() }}
         run: pnpm -r build
-      - name: Publish package
+
+      - name: Publish Workspace Packages
         run: pnpm -r publish --access public --no-git-checks --dry-run
