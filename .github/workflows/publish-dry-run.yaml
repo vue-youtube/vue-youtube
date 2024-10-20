@@ -27,12 +27,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint Workspace Packages
-        run: pnpm -r lint
-
       - name: Build Workspace Packages
         if: ${{ success() }}
-        run: pnpm -r build
+        run: pnpm run build
 
       - name: Publish Workspace Packages
-        run: pnpm -r publish --access public --no-git-checks --dry-run
+        run: pnpm run publish:dry

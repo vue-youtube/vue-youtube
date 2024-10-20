@@ -8,6 +8,8 @@
   },
   "scripts": {
     "build": "pnpm -r --filter=./packages/** build",
+    "publish": "pnpm -r --filter=./packages/** publish --access public --no-git-checks",
+    "publish:dry": "pnpm -r --filter=./packages/** publish --access public --no-git-checks --dry-run",
     "lint": "eslint --cache --ext .js,.vue,.ts,.json .",
     "lint:fix": "pnpm lint --fix",
     "docs:dev": "pnpm --filter=./docs dev",
