@@ -314,29 +314,75 @@ Be careful when using `instance`. You could, for example, destroy the player ins
 recover the destroyed player.
 :::
 
-## Configuration
+## Helper Functions
 
-The `usePlayer` function has a optional third parameter to provide player options. The values prefixed with `//` are the
-default values.
+### togglePlay
 
-```ts
+The `togglePlay` function pauses / unpauses the video.
+
+```vue
+<script setup lang="ts">
 const player = ref();
-usePlayer('dQw4w9WgXcQ', player, {
-  playerVars: {}, // {}
-  cookie: false,  // true
-  width: 1920,    // 1280
-  height: 1080,   // 720
-});
+const { togglePlay } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="togglePlay">Pause / Unpause</button>
+</template>
 ```
 
-### Supported Options
+### toggleMute
 
-| Option       | Details                                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `playerVars` | Customize the player behavior, see [hereplayer-param-reference][player-param-reference] for reference.              |
-| `cookie`     | When this option is `true` the host `https://www.youtube.com` is used, otherwise `https://www.youtube-nocookie.com` |
-| `width`      | Set the width of the YouTube player. Number and string supported.                                                   |
-| `height`     | Set the height of the YouTube player. Number and string supported.                                                  |
+The `toggleMute` function mutes / unmutes the player.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleMute } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleMute">Mute / Unmute</button>
+</template>
+```
+
+### toggleLoop
+
+The `toggleLoop` function toggles playlist looping on / off.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleLoop } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleLoop">Loop / No loop</button>
+</template>
+```
+
+*See [Reference](https://developers.google.com/youtube/iframe_api_reference#setLoop)*
+
+### `toggleShuffle`
+
+The `toggleShuffle` function toggles playlist shuffling on / off.
+
+```vue
+<script setup lang="ts">
+const player = ref();
+const { toggleShuffle } = usePlayer('dQw4w9WgXcQ', player);
+</script>
+
+<template>
+  <div ref="player" />
+  <button @click="toggleShuffle">Shuffle / No shuffle</button>
+</template>
+```
+
+*See [Reference](https://developers.google.com/youtube/iframe_api_reference#setShuffle)*
 
 ::: details Show Type Declarations
 ```ts
