@@ -23,6 +23,12 @@ export interface Manager {
   _state: ManagerState;
 }
 
+export const withDefaultManagerOptions = (options: Partial<ManagerOptions>): ManagerOptions => {
+  return {
+    deferLoading: options.deferLoading ?? { enabled: false, autoLoad: false },
+  };
+};
+
 export const injectManager = () => {
   const manager = inject<Manager>(PROVIDE_KEY);
 
@@ -39,13 +45,8 @@ export const injectManager = () => {
  * @see https://vue-youtube.github.io/docs/usage/manager
  * @returns Manager
  */
-export const createManager = (options?: ManagerOptions) => {
-  const managerOptions = options || {
-    deferLoading: {
-      enabled: false,
-      autoLoad: false,
-    },
-  };
+export const createManager = (options: Partial<ManagerOptions> = {}) => {
+  const managerOptions = withDefaultManagerOptions(options);
 
   const state: ManagerState = {
     backlog: new Map<string, RegisterFunction>(),
