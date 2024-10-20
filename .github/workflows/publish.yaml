@@ -30,12 +30,12 @@ jobs:
 
       - name: Build Workspace Packages
         if: ${{ success() }}
-        run: pnpm -r build
+        run: pnpm run build
 
       - name: Publish Workspace Packages
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-        run: pnpm -r publish --access public --no-git-checks
+        run: pnpm run publish
 
       - name: Create release
         uses: softprops/action-gh-release@v2.0.8
