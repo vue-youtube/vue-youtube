@@ -27,16 +27,34 @@ usePlayer('dQw4w9WgXcQ', player);
 ```
 
 <ClientOnly>
-  <YoutubeIframe video-id="dQw4w9WgXcQ" :height="400" />
+  <YoutubeIframe videoId="dQw4w9WgXcQ" :height="400" />
 </ClientOnly>
 
 ## Event Callbacks
 
-The composable function provides multiple hooks to handle events. **All import statements are removed for simplicity.**
+::: tip Notice
+Explicit imports in **all** following code snippets have been removed for brevity.
+:::
 
-### Provide multiple Callback Functions at once <Badge type="tip" text="Since 0.0.3" />
+The composable provides multiple hooks to handle events. Each hook can register one or more handlers
+at once.
 
-```ts
+::: code-group
+
+```ts [Single]
+const player = ref();
+const { onReady } = usePlayer('dQw4w9WgXcQ', player);
+
+onReady((event) => {
+  console.log('I will get triggered when the player is ready');
+});
+
+onReady((event) => {
+  console.log('You will see this message as well!');
+});
+```
+
+```ts [Multiple <Badge type="tip" text="Since 0.0.3" />]
 const player = ref();
 const { onReady } = usePlayer('dQw4w9WgXcQ', player);
 
@@ -50,20 +68,7 @@ onReady(
 );
 ```
 
-### Provide multiple Callback Functions separately
-
-```ts
-const player = ref();
-const { onReady } = usePlayer('dQw4w9WgXcQ', player);
-
-onReady((event) => {
-  console.log('I will get triggered when the player is ready');
-});
-
-onReady((event) => {
-  console.log('You will see this message as well!');
-});
-```
+:::
 
 ### onReady
 
