@@ -1,7 +1,5 @@
 # Composable
 
-[player-param-reference]: https://developers.google.com/youtube/player_parameters#Parameters
-
 ## Usage
 
 ::: tip Hint
@@ -389,72 +387,24 @@ const { toggleShuffle } = usePlayer('dQw4w9WgXcQ', player);
 
 *See [Reference](https://developers.google.com/youtube/iframe_api_reference#setShuffle)*
 
+## Configuration
+
+The `usePlayer` function has a optional third parameter to provide player options. If not specified,
+the default values will be used.
+
 ::: details Show Type Declarations
 ```ts
-export function usePlayer(
-  newVideoId: MaybeRef<string>,
-  element: MaybeElementRef,
-  options: Options = {}
-) : {
-  instance: ShallowRef<Player | undefined>;
-  togglePlay: () => void;
-  toggleMute: () => void;
-  toggleLoop: () => void;
-  toggleShuffle: () => void;
-  onPlaybackQualityChange: (...cb: Array<PlaybackQualityChangeCallback>) => void;
-  onPlaybackRateChange: (...cb: Array<PlaybackRateChangeCallback>) => void;
-  onStateChange: (...cb: Array<PlayerStateChangeCallback>) => void;
-  onApiChange: (...cb: Array<APIChangeCallback>) => void;
-  onError: (...cb: Array<ErrorCallback>) => void;
-  onReady: (...cb: Array<ReadyCallback>) => void;
-}
 export interface Options {
-  height?: number | string;
-  width?: number | string;
-  playerVars?: PlayerVars;
-  cookie?: boolean;
-}
-export interface PlayerVars {
-  autohide?: AutohideOption | undefined;
-  autoplay?: AutoplayOption | undefined;
-  cc_load_policy?: CCLoadPolicyOption | undefined;
-  cc_lang_pref?: string | undefined;
-  color?: ProgressBarColor | undefined;
-  controls?: ControlsOption | undefined;
-  disablekb?: KeyboardOptions | undefined;
-  enablejsapi?: JSAPIOptions | undefined;
-  end?: number | undefined;
-  fs?: FullscreenOption | undefined;
-  hl?: string | undefined;
-  iv_load_policy?: IVPolicyOption | undefined;
-  list?: string | undefined;
-  listType?: ListType | undefined;
-  loop?: LoopOption | undefined;
-  modestbranding?: ModestBrandingOption | undefined;
-  mute?: MuteOption | undefined;
-  origin?: string | undefined;
-  playlist?: string | undefined;
-  playsinline?: PlaysInlineOption | undefined;
-  rel?: RelatedVideosOption | undefined;
-  showinfo?: ShowInfoOption | undefined;
-  start?: number | undefined;
+  height: number | string;
+  width: number | string;
+  playerVars: PlayerVars;
+  cookie: boolean;
+  onVideoIdChange: OnVideoIdChange;
 }
 ```
 :::
 
-### `playerVars` Reference <Badge type="warning" text="New" />
-
-::: info Info
-This section will soon feature a full reference. See [#7](https://github.com/vue-youtube/docs/issues/7) for more
-information on implementation progress.
-:::
-
-It is important to look up the official YouTube [player parameter reference][player-param-reference]. Some parameters
-might oppose unexpected requirements on the provided value. Invalid values might render the player inoperable.
-
-Such an example is the `start` parameter which is typed as a `number` in TS. In JavaScript (and thus also in Typescript)
-a `number` can be any *kind* of number, like integer or float. The parameter however expects integer values, otherwise
-the player won't start playing the video.
+Details on individual options can be viewed [here](./options.md).
 
 ## Examples
 

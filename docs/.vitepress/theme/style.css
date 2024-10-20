@@ -38,3 +38,9 @@ main iframe {
 .vp-doc h4 {
   margin-top: 10px;
 }
+
+/* Fix badly styled badge in h2 */
+.vp-doc h2>.VPBadge {
+  margin-top: 0;
+  vertical-align: initial;
+}
