@@ -24,16 +24,8 @@ const sidebar: DefaultTheme.Config['sidebar'] = {
           link: '/usage/manager',
         },
         {
-          text: 'Composable',
-          link: '/usage/composable',
-        },
-        {
-          text: 'Component',
-          link: '/usage/component',
-        },
-        {
-          text: 'Options',
-          link: '/usage/options',
+          text: 'Player',
+          link: '/usage/player',
         },
       ],
     },

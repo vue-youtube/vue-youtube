@@ -39,8 +39,14 @@ main iframe {
   margin-top: 10px;
 }
 
-/* Fix badly styled badge in h2 */
-.vp-doc h2>.VPBadge {
+/* Fix badly styled badge in and after h3 */
+.vp-doc h3~.VPBadge {
+  margin-top: 10px;
+  margin-left: 0;
+  vertical-align: initial;
+}
+
+.vp-doc h3>.VPBadge {
   margin-top: 0;
   vertical-align: initial;
 }

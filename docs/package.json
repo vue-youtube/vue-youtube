@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/node": "catalog:",
     "@vue-youtube/component": "workspace:*",
-    "@vue-youtube/core": "workspace:*"
+    "@vue-youtube/core": "workspace:*",
+    "vitepress-plugin-tabs": "catalog:"
   }
 }

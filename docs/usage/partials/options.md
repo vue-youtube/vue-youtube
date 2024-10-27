@@ -1,14 +1,12 @@
-# Configuration Options
+### `playerVars`
 
-[player-param-reference]: https://developers.google.com/youtube/player_parameters#Parameters
-
-## `playerVars` <Badge type="info">Default value: `{}`</Badge>
+<Badge type="info">Default value: <code>{}</code></Badge>
 
 Customize the player behavior, see the official [reference][player-param-reference].
 
-::: code-group
-
-```ts [Composable]
+:::tabs key:style
+== Composable
+```ts
 usePlayer('dQw4w9WgXcQ', playerRef, {
   playerVars: {
     autoplay: 1,
@@ -17,15 +15,15 @@ usePlayer('dQw4w9WgXcQ', playerRef, {
 });
 ```
 
-```vue [Component]
-<YoutubeIframe
+== Component
+```vue
+<YoutubeIframe videoId="dQw4w9WgXcQ"
   :playerVars="{
     autoplay: 1,
     mute: 1
   }"
-/>
+></YoutubeIframe>
 ```
-
 :::
 
 ::: details Show Type Declarations
@@ -61,7 +59,8 @@ export interface PlayerVars {
 ::: tip Notice
 This section will soon feature a full reference. See [#7](https://github.com/vue-youtube/docs/issues/7) for more
 information on implementation progress.
-:::
+
+---
 
 It is important to look up the official YouTube [player parameter reference][player-param-reference]. Some parameters
 might oppose unexpected requirements on the provided value. Invalid values might render the player inoperable.
@@ -69,22 +68,39 @@ might oppose unexpected requirements on the provided value. Invalid values might
 Such an example is the `start` parameter which is typed as a `number` in TS. In JavaScript (and thus also in Typescript)
 a `number` can be any *kind* of number, like integer or float. The parameter however expects integer values, otherwise
 the player won't start playing the video.
+:::
 
-## `cookie` <Badge type="info">Default value: `false`</Badge>
+### `cookie`
+
+<Badge type="info">Default value: <code>false</code></Badge>
 
 When this option is `true` the host `https://www.youtube.com` is used, otherwise
 `https://www.youtube-nocookie.com` will be used.
 
+:::tabs key:style
+== Composable
 ```ts
 usePlayer('dQw4w9WgXcQ', playerRef, {
   cookie: true,
 });
 ```
 
-## `width` and `height` <Badge type="info">Default values: `1280` / `720`</Badge>
+== Component
+```vue
+<YoutubeIframe videoId="dQw4w9WgXcQ"
+  :cookie="true"
+/>
+```
+:::
+
+### `width` and `height`
+
+<Badge type="info">Default values: <code>1280</code> / <code>720</code></Badge>
 
 Sets the width and height of the YouTube player. Number and string supported.
 
+:::tabs key:style
+== Composable
 ```ts
 usePlayer('dQw4w9WgXcQ', playerRef, {
   width: 1920,
@@ -92,14 +108,35 @@ usePlayer('dQw4w9WgXcQ', playerRef, {
 });
 ```
 
-## `onVideoIdChange` <Badge type="info">Default value: `'play'`</Badge> <Badge type="tip" text="Planned for 0.0.7" />
+== Component
+```vue
+<YoutubeIframe videoId="dQw4w9WgXcQ"
+  :width="1920"
+  :height="1080"
+/>
+```
+:::
+
+### `onVideoIdChange` <Badge type="tip" text="Planned for 0.0.7" />
+
+<Badge type="info">Default value: <code>'play'</code></Badge>
 
 Customize the player behavior when video ID changes, supports `play` and `cue`. By default `play` is
 used and the player will automatically start playing the new video. Using `cue` will result in the
 player queuing the video. Playback needs to be started manually.
 
+:::tabs key:style
+== Composable
 ```ts
 usePlayer('dQw4w9WgXcQ', playerRef, {
   onVideoIdChange: 'cue',
 });
 ```
+
+== Component
+```vue
+<YoutubeIframe videoId="dQw4w9WgXcQ"
+  onVideoIdChange="cue"
+/>
+```
+:::

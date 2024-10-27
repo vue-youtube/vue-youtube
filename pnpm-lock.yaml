@@ -27,6 +27,9 @@ catalogs:
     vitepress:
       specifier: ^1.4.0
       version: 1.4.0
+    vitepress-plugin-tabs:
+      specifier: ^0.5.0
+      version: 0.5.0
     vue:
       specifier: ^3.3.7
       version: 3.5.12
@@ -65,6 +68,9 @@ importers:
       '@vue-youtube/core':
         specifier: workspace:*
         version: link:../packages/core
+      vitepress-plugin-tabs:
+        specifier: 'catalog:'
+        version: 0.5.0(vitepress@1.4.0(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(search-insights@2.17.2)(typescript@5.6.3))(vue@3.5.12(typescript@5.6.3))
 
   packages/component:
     dependencies:
@@ -2428,6 +2434,12 @@ packages:
         optional: true
       terser:
         optional: true
+
+  vitepress-plugin-tabs@0.5.0:
+    resolution: {integrity: sha512-SIhFWwGsUkTByfc2b279ray/E0Jt8vDTsM1LiHxmCOBAEMmvzIBZSuYYT1DpdDTiS3SuJieBheJkYnwCq/yD9A==}
+    peerDependencies:
+      vitepress: ^1.0.0-rc.27
+      vue: ^3.3.8
 
   vitepress@1.4.0:
     resolution: {integrity: sha512-JXCv4EsKTDyAFb6C/UjZr7nsGAzZ6mafVk2rx7rG5o8N+B/4QstIk+iEOe/9dKoU6V624UIC6g1pZ+K63rxhlw==}
@@ -4972,6 +4984,11 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.7.5
       fsevents: 2.3.3
+
+  vitepress-plugin-tabs@0.5.0(vitepress@1.4.0(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(search-insights@2.17.2)(typescript@5.6.3))(vue@3.5.12(typescript@5.6.3)):
+    dependencies:
+      vitepress: 1.4.0(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(search-insights@2.17.2)(typescript@5.6.3)
+      vue: 3.5.12(typescript@5.6.3)
 
   vitepress@1.4.0(@algolia/client-search@4.24.0)(@types/node@22.7.5)(postcss@8.4.47)(search-insights@2.17.2)(typescript@5.6.3):
     dependencies:
