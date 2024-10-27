@@ -126,30 +126,64 @@ This library provides many utility functions to handle basic interactions with t
 control over the player, `usePlayer` returns a shallow ref of the player instance. The instance provides full access
 to all player functions like:
 
+:::tabs key:style
+== Composable
 ```vue
-<template>
-  <div ref="yt" />
-</template>
-
 <script setup lang="ts">
 import { usePlayer } from '@vue-youtube/core';
 import { ref } from 'vue';
 
 const videoId = ref('dQw4w9WgXcQ');
-const yt = ref();
+const player = ref();
 
-const { instance } = usePlayer(videoId, yt, {
+const { instance, onReady } = usePlayer(videoId, player, {
   playerVars: {
     autoplay: 1,
     mute: 1,
   },
 });
 
-instance.value?.cueVideoById('aqz-KE-bpKQ', 0, 'hd1080');
-instance.value?.getPlaybackQuality();
-instance.value?.getCurrentTime();
+onReady(() => {
+  instance.value.cueVideoById('aqz-KE-bpKQ', 0, 'hd1080');
+  instance.value.getPlaybackQuality();
+  instance.value.getCurrentTime();
+});
 </script>
+
+<template>
+  <div ref="player" />
+</template>
 ```
+
+== Component
+```vue
+<script setup lang="ts">
+import { YoutubeIframe } from '@vue-youtube/component';
+import { ref } from 'vue';
+
+const videoId = ref('dQw4w9WgXcQ');
+const player = ref();
+
+const onReady = () => {
+  player.value.instance.cueVideoById('aqz-KE-bpKQ', 0, 'hd1080');
+  player.value.instance.getPlaybackQuality();
+  player.value.instance.getCurrentTime();
+};
+</script>
+
+<template>
+  <YoutubeIframe
+    ref="player"
+    :video-id="videoId"
+    :player-vars="{
+      autoplay: 1,
+      mute: 1
+    }"
+    @ready="onReady"
+  />
+</template>
+```
+:::
 
 ::: danger Caution
 Be careful when using `instance`. You could, for example, destroy the player instance. In this case, the library cannot
