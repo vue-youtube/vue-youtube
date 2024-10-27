@@ -1,3 +1,4 @@
+import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 import { defineConfig } from 'vitepress';
 import { resolve } from 'node:path';
 
@@ -34,6 +35,11 @@ export default defineConfig({
   base: '/vue-youtube/',
   sitemap: {
     hostname: 'https://vue-youtube.github.io/docs/'
+  },
+  markdown: {
+    config(md) {
+      md.use(tabsMarkdownPlugin)
+    }
   },
   vite: {
     resolve: {
